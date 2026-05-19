@@ -65,22 +65,22 @@ export default function Pricing() {
   ];
 
   return (
-    <section id="pricing" className="py-10 sm:py-12 lg:py-14 bg-gray-50">
+    <section id="pricing" className="py-16 sm:py-20 lg:py-24 bg-gray-50">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-10 space-y-2 sm:space-y-3">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
+        <div className="text-center mb-16 sm:mb-20 space-y-4">
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-600 max-w-4xl mx-auto font-light">
             Choose the perfect plan. All plans include a 14-day free trial.
           </p>
 
           {/* Billing Toggle */}
-          <div className="inline-flex items-center gap-2 bg-white rounded-lg p-1 border border-gray-200 mt-5">
+          <div className="inline-flex items-center gap-2 bg-white rounded-lg p-1.5 border border-gray-200 mt-6">
             <button
               onClick={() => setBillingCycle('monthly')}
-              className={`px-3 sm:px-4 py-2 rounded-md font-medium transition-all text-xs sm:text-sm ${
+              className={`px-4 py-2 rounded-md font-medium transition-all text-sm ${
                 billingCycle === 'monthly'
                   ? 'bg-gray-100 text-gray-900'
                   : 'text-gray-600 hover:text-gray-900'
@@ -90,7 +90,7 @@ export default function Pricing() {
             </button>
             <button
               onClick={() => setBillingCycle('annual')}
-              className={`px-3 sm:px-4 py-2 rounded-md font-medium transition-all text-xs sm:text-sm flex items-center gap-1 ${
+              className={`px-4 py-2 rounded-md font-medium transition-all text-sm flex items-center gap-2 ${
                 billingCycle === 'annual'
                   ? 'bg-gray-100 text-gray-900'
                   : 'text-gray-600 hover:text-gray-900'
@@ -98,7 +98,7 @@ export default function Pricing() {
             >
               Annual
               {billingCycle === 'annual' && (
-                <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">
+                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
                   Save 20%
                 </span>
               )}
@@ -107,38 +107,38 @@ export default function Pricing() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-8 sm:mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12 sm:mb-16">
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`relative rounded-lg transition-all duration-300 overflow-hidden ${
+              className={`relative rounded-2xl transition-all duration-300 overflow-hidden ${
                 plan.highlight
-                  ? 'bg-gradient-to-br from-blue-600 to-purple-600 shadow-lg md:scale-105'
-                  : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md'
+                  ? 'bg-gradient-to-br from-indigo-600 to-purple-600 shadow-xl md:scale-105'
+                  : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg'
               }`}
             >
               {/* Highlight Badge */}
               {plan.highlight && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
-                  <span className="bg-gradient-to-r from-amber-400 to-orange-400 text-gray-900 px-3 py-1 rounded-full text-xs font-semibold">
+                  <span className="bg-gradient-to-r from-amber-400 to-orange-400 text-gray-900 px-4 py-1.5 rounded-full text-xs font-semibold">
                     Most Popular
                   </span>
                 </div>
               )}
 
-              <div className={`p-5 sm:p-6 lg:p-8 ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
+              <div className={`p-8 sm:p-10 ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
                 {/* Plan Name */}
-                <h3 className={`text-base sm:text-lg font-bold mb-1 ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
+                <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
                   {plan.name}
                 </h3>
-                <p className={`text-xs mb-5 sm:mb-6 ${plan.highlight ? 'text-blue-100' : 'text-gray-600'}`}>
+                <p className={`text-lg mb-6 ${plan.highlight ? 'text-blue-100' : 'text-gray-600'}`}>
                   {plan.description}
                 </p>
 
                 {/* Price */}
-                <div className="mb-5 sm:mb-6">
+                <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className={`text-3xl sm:text-4xl font-bold ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
+                    <span className={`text-5xl font-bold ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
                       {plan.price}
                     </span>
                     <span className={plan.highlight ? 'text-blue-100' : 'text-gray-600'}>
@@ -149,26 +149,26 @@ export default function Pricing() {
 
                 {/* CTA Button */}
                 <button
-                  className={`w-full py-2.5 rounded-lg font-semibold mb-5 sm:mb-6 transition-all text-sm ${
+                  className={`w-full py-4 rounded-lg font-bold mb-8 transition-all text-lg ${
                     plan.highlight
-                      ? 'bg-white text-blue-600 hover:bg-gray-50'
-                      : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/30'
+                      ? 'bg-white text-indigo-600 hover:bg-gray-50'
+                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:shadow-indigo-500/30'
                   }`}
                 >
                   Get Started
                 </button>
 
                 {/* Features */}
-                <div className="space-y-2">
+                <div className="space-y-4">
                   {plan.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-start gap-2">
+                    <div key={featureIndex} className="flex items-start gap-3">
                       <Check
-                        size={16}
-                        className={`flex-shrink-0 mt-0.5 ${
+                        size={20}
+                        className={`flex-shrink-0 mt-1 ${
                           plan.highlight ? 'text-blue-100' : 'text-green-600'
                         }`}
                       />
-                      <span className={`text-xs ${plan.highlight ? 'text-blue-50' : 'text-gray-700'}`}>
+                      <span className={`text-lg ${plan.highlight ? 'text-blue-50' : 'text-gray-700'}`}>
                         {feature}
                       </span>
                     </div>
@@ -180,9 +180,9 @@ export default function Pricing() {
         </div>
 
         {/* FAQ */}
-        <div className="bg-white rounded-lg p-5 sm:p-6 lg:p-8 border border-gray-200">
-          <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-5 sm:mb-6">Frequently Asked Questions</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
+        <div className="bg-white rounded-2xl p-8 sm:p-10 border border-gray-200">
+          <h3 className="text-xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
             {[
               {
                 q: 'Can I change plans anytime?',
@@ -202,8 +202,8 @@ export default function Pricing() {
               },
             ].map((faq, index) => (
               <div key={index}>
-                <h4 className="font-semibold text-gray-900 mb-1 text-sm">{faq.q}</h4>
-                <p className="text-gray-600 text-xs">{faq.a}</p>
+                <h4 className="font-semibold text-gray-900 mb-2 text-base">{faq.q}</h4>
+                <p className="text-gray-600 text-sm">{faq.a}</p>
               </div>
             ))}
           </div>

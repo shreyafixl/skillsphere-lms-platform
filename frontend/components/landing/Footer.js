@@ -37,7 +37,7 @@ export default function Footer() {
     <footer className="bg-gray-900 text-gray-300">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer */}
-        <div className="py-10 sm:py-12 lg:py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6 lg:gap-10">
+        <div className="py-16 sm:py-20 lg:py-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-3">
@@ -90,7 +90,7 @@ export default function Footer() {
         <div className="border-t border-gray-800" />
 
         {/* Bottom Footer */}
-        <div className="py-4 sm:py-5 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-400">
+        <div className="py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-400">
           <p>
             © {currentYear} SkillSphere. All rights reserved.
           </p>

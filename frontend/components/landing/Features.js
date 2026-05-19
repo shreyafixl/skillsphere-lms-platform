@@ -92,38 +92,38 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-10 sm:py-12 lg:py-14 bg-white">
+    <section id="features" className="py-16 sm:py-20 lg:py-24 bg-white">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-10 space-y-2">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <div className="text-center mb-16 sm:mb-20 space-y-4">
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900">
             Comprehensive Features
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-600 max-w-4xl mx-auto font-light">
             Everything you need to build, manage, and scale enterprise learning programs.
           </p>
         </div>
 
         {/* Features Grid - 3 columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 sm:mb-16">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <div
                 key={index}
-                className="group relative bg-white rounded-lg p-4 border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300"
+                className="group relative bg-white rounded-xl p-6 border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300"
               >
                 {/* Icon */}
-                <div className={`w-9 h-9 bg-gradient-to-br ${feature.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
-                  <Icon size={18} className="text-white" />
+                <div className={`w-12 h-12 bg-gradient-to-br ${feature.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                  <Icon size={24} className="text-white" />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-sm font-bold text-gray-900 mb-1">{feature.title}</h3>
-                <p className="text-xs text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-lg text-gray-600 leading-relaxed">{feature.description}</p>
 
                 {/* Hover accent */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 rounded-lg transition-opacity duration-300 -z-10`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 rounded-xl transition-opacity duration-300 -z-10`} />
               </div>
             );
           })}
@@ -131,7 +131,7 @@ export default function Features() {
 
         {/* CTA */}
         <div className="text-center">
-          <button className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-sm">
+          <button className="px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-indigo-500/30 transition-all text-lg">
             Schedule a Demo
           </button>
         </div>
