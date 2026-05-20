@@ -15,9 +15,11 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import LoginModal from "@/components/auth/LoginModal"
 
 export default function Home() {
   const [open, setOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false)
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50">
@@ -64,13 +66,13 @@ export default function Home() {
           {/* BUTTONS */}
           <div className="flex items-center gap-3">
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setOpen(true)}
-            >
-              Sign In
-            </Button>
+          <Button
+  variant="ghost"
+  size="sm"
+  onClick={() => setLoginOpen(true)}
+>
+  Sign In
+</Button>
 
             <Button
               size="sm"
@@ -1174,7 +1176,10 @@ export default function Home() {
         </div>
 
       )}
-
+<LoginModal
+  open={loginOpen}
+  setOpen={setLoginOpen}
+/>
     </div>
   )
 }            
