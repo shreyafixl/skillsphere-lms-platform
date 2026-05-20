@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ArrowRight, Play, Check } from "lucide-react";
 
 export default function Hero() {
@@ -36,14 +37,14 @@ export default function Hero() {
             </p>
 
             <div className="mt-14 flex flex-col gap-5 sm:flex-row">
-              <button className="inline-flex items-center justify-center rounded-xl bg-zinc-950 px-9 py-5 text-xl font-semibold text-white transition hover:bg-zinc-800">
+              <Link href="/signup" className="inline-flex items-center justify-center rounded-xl bg-zinc-950 px-9 py-5 text-xl font-semibold text-white transition hover:bg-zinc-800">
                 Start Free Trial
                 <ArrowRight className="ml-3 h-6 w-6" />
-              </button>
+              </Link>
 
-              <button className="inline-flex items-center justify-center rounded-xl border border-zinc-300 bg-white px-9 py-5 text-xl font-semibold text-zinc-900 transition hover:bg-zinc-50">
+              <button className="inline-flex items-center justify-center rounded-xl border border-zinc-300 bg-white px-9 py-5 text-xl font-semibold text-violet-600 transition hover:bg-zinc-50">
                 <Play className="mr-3 h-6 w-6" />
-                Watch Demo
+                Schedule Demo
               </button>
             </div>
 
@@ -61,92 +62,103 @@ export default function Hero() {
           </div>
 
           {/* RIGHT */}
-          <div className="relative flex items-center justify-center">
+          <div className="relative overflow-visible" style={{ height: '550px', perspective: '1000px' }}>
             
-            <div className="relative w-full max-w-xl rounded-3xl border border-zinc-800 bg-[#0B1020] p-6 shadow-2xl">
-              
-              <div className="mb-6 flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-zinc-400">
+            {/* MAIN DARK ANALYTICS CARD */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative w-full h-full rounded-3xl border border-zinc-800 bg-[#0B1020] p-12 shadow-2xl z-20" style={{ maxWidth: '520px', maxHeight: '480px' }}>
+                
+                {/* Header */}
+                <div className="mb-10">
+                  <h3 className="text-4xl font-bold text-white">
                     Learning Analytics
-                  </p>
-                  <h3 className="mt-1 text-3xl font-semibold text-white">
-                    Team Performance
                   </h3>
                 </div>
 
-                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-400"></div>
-              </div>
-
-              <div className="space-y-5">
-                
-                <div>
-                  <div className="mb-2 flex justify-between text-sm text-zinc-300">
-                    <span>Completion Rate</span>
-                    <span>87%</span>
+                {/* Content - Metrics */}
+                <div className="space-y-8">
+                  
+                  {/* Completion */}
+                  <div>
+                    <div className="mb-3 flex justify-between items-center">
+                      <span className="text-lg text-white font-medium">Completion</span>
+                      <span className="text-lg text-white font-semibold">87%</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-zinc-700/50">
+                      <div className="h-2 w-[87%] rounded-full bg-gradient-to-r from-cyan-400 to-violet-500"></div>
+                    </div>
                   </div>
 
-                  <div className="h-2 rounded-full bg-zinc-800">
-                    <div className="h-2 w-[87%] rounded-full bg-gradient-to-r from-cyan-400 to-violet-500"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="mb-2 flex justify-between text-sm text-zinc-300">
-                    <span>Employee Growth</span>
-                    <span>72%</span>
+                  {/* Active Learners */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg text-white font-medium">Active Learners</span>
+                    <span className="text-lg text-cyan-400 font-semibold">2,847</span>
                   </div>
 
-                  <div className="h-2 rounded-full bg-zinc-800">
-                    <div className="h-2 w-[72%] rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500"></div>
+                  {/* Certification Rate */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg text-white font-medium">Certification Rate</span>
+                    <span className="text-lg text-emerald-400 font-semibold">91%</span>
                   </div>
-                </div>
-              </div>
 
-              <div className="mt-8 grid grid-cols-3 gap-4">
-                
-                <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-4">
-                  <p className="text-sm text-zinc-400">
-                    Certification Rate
-                  </p>
-                  <p className="mt-2 text-3xl font-semibold text-white">
-                    94%
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-4">
-                  <p className="text-sm text-zinc-400">
-                    Learners
-                  </p>
-                  <p className="mt-2 text-3xl font-semibold text-white">
-                    12K
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-4">
-                  <p className="text-sm text-zinc-400">
-                    Avg Completion
-                  </p>
-                  <p className="mt-2 text-3xl font-semibold text-white">
-                    4.2h
-                  </p>
+                  {/* Average Learning Time */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg text-white font-medium">Average Learning Time</span>
+                    <span className="text-lg text-white font-semibold">4.2 hrs</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* FLOATING CARD */}
-            <div className="absolute -bottom-10 -left-10 rounded-2xl border border-zinc-200 bg-white p-5 shadow-2xl">
-              <p className="text-sm text-zinc-500">
-                Certification Rate
-              </p>
+            {/* FLOATING CARD - TOP RIGHT */}
+            <div className="absolute z-30" style={{ top: '60px', right: '-40px', width: '280px' }}>
+              <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-2xl">
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div>
+                    <p className="text-base font-bold text-zinc-900">
+                      Team Progress
+                    </p>
+                  </div>
+                  <p className="text-lg font-bold text-emerald-500 flex-shrink-0">
+                    +18%
+                  </p>
+                </div>
+                <div className="h-2 rounded-full bg-zinc-200 mb-3">
+                  <div className="h-2 w-[70%] rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
+                </div>
+                <p className="text-sm text-zinc-600">
+                  Weekly learning performance increased.
+                </p>
+              </div>
+            </div>
 
-              <p className="mt-1 text-5xl font-bold text-zinc-950">
-                94%
-              </p>
-
-              <p className="mt-1 text-sm font-medium text-emerald-500">
-                ↑ 18% this month
-              </p>
+            {/* FLOATING CARD - BOTTOM LEFT */}
+            <div className="absolute z-30" style={{ bottom: '-30px', left: '-20px', width: '280px' }}>
+              <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-2xl">
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="flex-shrink-0 h-12 w-12 rounded-2xl bg-gradient-to-br from-pink-200 to-rose-200 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-rose-600" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="12" cy="12" r="2" />
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-base font-bold text-zinc-900">
+                      Skill Goals
+                    </p>
+                    <p className="text-sm text-zinc-500">
+                      12 Goals Completed
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-sm text-zinc-700 font-medium">Progress</p>
+                  <p className="text-sm font-bold text-zinc-900">82%</p>
+                </div>
+                <div className="h-2 rounded-full bg-zinc-200">
+                  <div className="h-2 w-[82%] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

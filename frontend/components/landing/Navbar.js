@@ -15,29 +15,29 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 z-50 w-full border-b border-zinc-200/60 bg-white/80 backdrop-blur-xl">
+    <nav className="fixed top-0 z-50 w-full border-b border-zinc-200/40 bg-white/70 backdrop-blur-2xl">
       
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         
         {/* Logo */}
-        <Link href="/" className="flex shrink-0 items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
           
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 shadow-md">
-            <span className="text-6xl font-bold text-white">S</span>
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-purple-600 to-fuchsia-500 shadow-lg shadow-purple-500/20 group-hover:shadow-xl group-hover:shadow-purple-500/30 transition-all duration-300">
+            <span className="text-lg font-bold text-white">S</span>
           </div>
 
-          <span className="hidden text-3xl font-bold tracking-tight text-zinc-900 sm:block">
+          <span className="hidden text-xl font-bold tracking-tight text-zinc-900 sm:block">
             SkillSphere
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-14 md:flex">
+        <div className="hidden md:flex items-center gap-14">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-xl font-semibold tracking-tight text-zinc-600 transition-all duration-200 hover:-translate-y-[1px] hover:text-zinc-950"
+              className="text-lg font-semibold text-zinc-600 transition-colors hover:text-zinc-950"
             >
               {link.label}
             </a>
@@ -45,15 +45,15 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Actions */}
-        <div className="hidden shrink-0 items-center gap-6 md:flex">
+        <div className="hidden md:flex items-center gap-6 shrink-0">
           
-          <button className="text-xl font-semibold text-zinc-600 transition-all duration-200 hover:text-zinc-950">
+          <Link href="/login" className="text-lg font-semibold text-zinc-600 transition-colors hover:text-zinc-950">
             Sign In
-          </button>
+          </Link>
 
-          <button className="rounded-2xl bg-zinc-950 px-7 py-3.5 text-xl font-semibold text-white transition-all duration-200 hover:bg-zinc-800 hover:shadow-lg">
+          <Link href="/signup" className="rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 px-7 py-3.5 text-lg font-bold text-white transition-all hover:shadow-lg hover:shadow-purple-500/30">
             Get Started
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -62,9 +62,9 @@ export default function Navbar() {
           className="rounded-lg p-2 transition-colors hover:bg-zinc-100 md:hidden"
         >
           {isOpen ? (
-            <X className="h-7 w-7 text-zinc-900" />
+            <X className="h-6 w-6 text-zinc-900" />
           ) : (
-            <Menu className="h-7 w-7 text-zinc-900" />
+            <Menu className="h-6 w-6 text-zinc-900" />
           )}
         </button>
       </div>
@@ -81,7 +81,7 @@ export default function Navbar() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="rounded-xl px-4 py-4 text-lg font-medium text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
+                  className="rounded-xl px-4 py-3 text-base font-medium text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
                 >
                   {link.label}
                 </a>
@@ -89,13 +89,13 @@ export default function Navbar() {
 
               <div className="mt-4 flex flex-col gap-3 border-t border-zinc-200 pt-4">
                 
-                <button className="rounded-xl border border-zinc-300 px-4 py-4 text-lg font-semibold text-zinc-700 transition-colors hover:bg-zinc-100">
+                <Link href="/login" className="rounded-xl border border-zinc-300 px-4 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 block text-center">
                   Sign In
-                </button>
+                </Link>
 
-                <button className="rounded-xl bg-zinc-950 px-4 py-4 text-lg font-semibold text-white transition-all hover:bg-zinc-800">
+                <Link href="/signup" className="rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 px-4 py-3 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-purple-500/30 block text-center">
                   Get Started
-                </button>
+                </Link>
               </div>
             </div>
           </div>
