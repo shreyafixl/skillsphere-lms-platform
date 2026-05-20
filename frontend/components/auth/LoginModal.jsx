@@ -2,8 +2,16 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Eye, EyeOff } from "lucide-react"
+import { toast } from "sonner"
+import { useState } from "react"
 
 export default function LoginModal({ open, setOpen }) {
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [email, setEmail] = useState("")
+const [password, setPassword] = useState("")
 
   if (!open) return null
 
@@ -33,18 +41,47 @@ export default function LoginModal({ open, setOpen }) {
         {/* INPUTS */}
         <div className="space-y-4">
 
-          <Input
-            type="email"
-            placeholder="Work Email"
-            className="h-12 rounded-xl"
-          />
+        <Input
+  type="email"
+  placeholder="Work Email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  className="h-12 rounded-xl"
+/>
+{errors.email && (
+  <p className="text-red-500 text-sm">
+    {errors.email}
+  </p>
+)}
 
-          <Input
-            type="password"
-            placeholder="Password"
-            className="h-12 rounded-xl"
-          />
+<div className="relative">
 
+<Input
+  type={showPassword ? "text" : "password"}
+  placeholder="Password"
+  value={password}
+onChange={(e) => setPassword(e.target.value)}
+  className="h-12 rounded-xl pr-12"
+/>
+{errors.password && (
+  <p className="text-red-500 text-sm">
+    {errors.password}
+  </p>
+)}
+
+<button
+  type="button"
+  onClick={() => setShowPassword(!showPassword)}
+  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+>
+  {showPassword ? (
+    <EyeOff size={20} />
+  ) : (
+    <Eye size={20} />
+  )}
+</button>
+
+</div>
         </div>
 
         {/* REMEMBER + FORGOT */}
@@ -65,11 +102,44 @@ export default function LoginModal({ open, setOpen }) {
 
         {/* LOGIN BUTTON */}
         <Button
-          className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:scale-[1.02] transition-all duration-300 shadow-lg text-white font-semibold mt-6"
-        >
-          Sign In
-        </Button>
+  disabled={loading}
+  onClick={() => {
 
+    let newErrors = {}
+  
+    if (!email) {
+      newErrors.email = "Email is required"
+    }
+  
+    if (!password) {
+      newErrors.password = "Password is required"
+    } else if (password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters"
+    }
+  
+    setErrors(newErrors)
+  
+    if (Object.keys(newErrors).length > 0) {
+
+      toast.error("Please fix the form errors")
+    
+      return
+    }
+  
+    setLoading(true)
+  
+    setTimeout(() => {
+
+      setLoading(false)
+    
+      toast.success("Login successful!")
+    
+    }, 2000)
+  }}
+  className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:scale-[1.02] transition-all duration-300 shadow-lg text-white font-semibold mt-6"
+>
+  {loading ? "Signing In..." : "Sign In"}
+</Button>
         {/* GOOGLE BUTTON */}
         <Button
           variant="outline"

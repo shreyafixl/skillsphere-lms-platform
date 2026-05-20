@@ -17,9 +17,26 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import LoginModal from "@/components/auth/LoginModal"
 
+import { Eye, EyeOff } from "lucide-react"
+import { toast } from "sonner"
+
 export default function Home() {
   const [open, setOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false)
+  
+  const [loading, setLoading] = useState(false)
+  
+  const [errors, setErrors] = useState({})
+  
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] =
+    useState("")
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50">
@@ -1110,17 +1127,33 @@ export default function Home() {
             {/* INPUTS */}
             <div className="space-y-4">
 
-              <Input
-                type="text"
-                placeholder="Full Name"
-                className="h-12 rounded-xl"
-              />
+            <Input
+  type="text"
+  placeholder="Full Name"
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+  className="h-12 rounded-xl"
+/>
 
-              <Input
-                type="email"
-                placeholder="Work Email"
-                className="h-12 rounded-xl"
-              />
+{errors.name && (
+  <p className="text-red-500 text-sm">
+    {errors.name}
+  </p>
+)}
+
+<Input
+  type="email"
+  placeholder="Work Email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  className="h-12 rounded-xl"
+/>
+
+{errors.email && (
+  <p className="text-red-500 text-sm">
+    {errors.email}
+  </p>
+)}
 
               <Input
                 type="text"
@@ -1128,17 +1161,72 @@ export default function Home() {
                 className="h-12 rounded-xl"
               />
 
-              <Input
-                type="password"
-                placeholder="Password"
-                className="h-12 rounded-xl"
-              />
+<div className="relative">
 
-              <Input
-                type="password"
-                placeholder="Confirm Password"
-                className="h-12 rounded-xl"
-              />
+<Input
+  type={showPassword ? "text" : "password"}
+  placeholder="Password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  className="h-12 rounded-xl pr-12"
+/>
+
+<button
+  type="button"
+  onClick={() => setShowPassword(!showPassword)}
+  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+>
+  {showPassword ? (
+    <EyeOff size={20} />
+  ) : (
+    <Eye size={20} />
+  )}
+</button>
+
+</div>
+
+{errors.password && (
+<p className="text-red-500 text-sm">
+  {errors.password}
+</p>
+)}
+<div className="relative">
+
+<Input
+  type={
+    showConfirmPassword ? "text" : "password"
+  }
+  placeholder="Confirm Password"
+  value={confirmPassword}
+  onChange={(e) =>
+    setConfirmPassword(e.target.value)
+  }
+  className="h-12 rounded-xl pr-12"
+/>
+
+<button
+  type="button"
+  onClick={() =>
+    setShowConfirmPassword(
+      !showConfirmPassword
+    )
+  }
+  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+>
+  {showConfirmPassword ? (
+    <EyeOff size={20} />
+  ) : (
+    <Eye size={20} />
+  )}
+</button>
+
+</div>
+
+{errors.confirmPassword && (
+<p className="text-red-500 text-sm">
+  {errors.confirmPassword}
+</p>
+)}
 
             </div>
 
@@ -1158,10 +1246,64 @@ export default function Home() {
 
             {/* MAIN BUTTON */}
             <Button
-              className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:scale-[1.02] transition-all duration-300 shadow-lg text-white font-semibold mt-4"
-            >
-              Create Workspace
-            </Button>
+  disabled={loading}
+  onClick={() => {
+
+    let newErrors = {}
+
+    if (!name) {
+      newErrors.name = "Full name is required"
+    }
+
+    if (!email) {
+      newErrors.email = "Email is required"
+    }
+
+    if (!password) {
+      newErrors.password = "Password is required"
+    } else if (password.length < 8) {
+      newErrors.password =
+        "Password must be at least 8 characters"
+    }
+
+    if (!confirmPassword) {
+      newErrors.confirmPassword =
+        "Please confirm your password"
+    }
+
+    if (password !== confirmPassword) {
+      newErrors.confirmPassword =
+        "Passwords do not match"
+    }
+
+    setErrors(newErrors)
+
+    if (Object.keys(newErrors).length > 0) {
+
+      toast.error("Please fix the form errors")
+
+      return
+    }
+
+    setLoading(true)
+
+    setTimeout(() => {
+
+      setLoading(false)
+
+      toast.success(
+        "Account created successfully!"
+      )
+
+    }, 2000)
+
+  }}
+  className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:scale-[1.02] transition-all duration-300 shadow-lg text-white font-semibold mt-6"
+>
+  {loading
+    ? "Creating Account..."
+    : "Create Account"}
+</Button>
 
             {/* FOOTER */}
             <p className="text-center text-sm text-gray-600 mt-5">

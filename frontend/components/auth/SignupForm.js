@@ -4,10 +4,23 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 
+import { Eye, EyeOff } from "lucide-react"
+import { toast } from "sonner"
 export default function SignupForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+const [loading, setLoading] = useState(false)
+
+const [errors, setErrors] = useState({})
+
+const [name, setName] = useState("")
+const [email, setEmail] = useState("")
+const [password, setPassword] = useState("")
+const [confirmPassword, setConfirmPassword] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
