@@ -37,6 +37,7 @@ export default function Home() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] =
     useState("")
+  const [role, setRole] = useState("")
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50">
@@ -1102,234 +1103,310 @@ export default function Home() {
 </footer>  
 
       
-        {/* MODAL */}
-      {open && (
+       {/* MODAL */}
+{open && (
 
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+<div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
 
-          <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl relative">
+  <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl relative">
 
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
-            >
-              ✕
-            </button>
+    <button
+      onClick={() => setOpen(false)}
+      className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
+    >
+      ✕
+    </button>
 
-            <h1 className="text-3xl font-bold mb-2">
-              Create Workspace 🚀
-            </h1>
+    <h1 className="text-3xl font-bold mb-2">
+      Create Workspace 🚀
+    </h1>
 
-            <p className="text-gray-500 mb-6">
-              Build smarter learning experiences for your team
-            </p>
+    <p className="text-gray-500 mb-6">
+      Build smarter learning experiences for your team
+    </p>
 
-            {/* INPUTS */}
-            <div className="space-y-4">
+    {/* INPUTS */}
+    <div className="space-y-4">
 
-            <Input
-  type="text"
-  placeholder="Full Name"
-  value={name}
-  onChange={(e) => setName(e.target.value)}
-  className="h-12 rounded-xl"
-/>
+      {/* FULL NAME */}
+      <div>
+        <Input
+          type="text"
+          placeholder="Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="h-12 rounded-xl"
+        />
 
-{errors.name && (
-  <p className="text-red-500 text-sm">
-    {errors.name}
-  </p>
-)}
+        {errors.name && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.name}
+          </p>
+        )}
+      </div>
 
-<Input
-  type="email"
-  placeholder="Work Email"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-  className="h-12 rounded-xl"
-/>
+      {/* EMAIL */}
+      <div>
+        <Input
+          type="email"
+          placeholder="Work Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="h-12 rounded-xl"
+        />
 
-{errors.email && (
-  <p className="text-red-500 text-sm">
-    {errors.email}
-  </p>
-)}
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.email}
+          </p>
+        )}
+      </div>
 
-              <Input
-                type="text"
-                placeholder="Company Name"
-                className="h-12 rounded-xl"
-              />
+      {/* COMPANY */}
+      <Input
+        type="text"
+        placeholder="Company Name"
+        className="h-12 rounded-xl"
+      />
 
-<div className="relative">
+      {/* ROLE */}
+      <div>
 
-<Input
-  type={showPassword ? "text" : "password"}
-  placeholder="Password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  className="h-12 rounded-xl pr-12"
-/>
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="w-full h-12 rounded-xl border border-gray-300 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
+        >
 
-<button
-  type="button"
-  onClick={() => setShowPassword(!showPassword)}
-  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
->
-  {showPassword ? (
-    <EyeOff size={20} />
-  ) : (
-    <Eye size={20} />
-  )}
-</button>
+          <option value="">
+            Select Role
+          </option>
 
-</div>
+          <option value="superadmin">
+            Super Admin
+          </option>
 
-{errors.password && (
-<p className="text-red-500 text-sm">
-  {errors.password}
-</p>
-)}
-<div className="relative">
+          <option value="tenantadmin">
+            Tenant Admin
+          </option>
 
-<Input
-  type={
-    showConfirmPassword ? "text" : "password"
-  }
-  placeholder="Confirm Password"
-  value={confirmPassword}
-  onChange={(e) =>
-    setConfirmPassword(e.target.value)
-  }
-  className="h-12 rounded-xl pr-12"
-/>
+          <option value="manager">
+            Manager
+          </option>
 
-<button
-  type="button"
-  onClick={() =>
-    setShowConfirmPassword(
-      !showConfirmPassword
-    )
-  }
-  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
->
-  {showConfirmPassword ? (
-    <EyeOff size={20} />
-  ) : (
-    <Eye size={20} />
-  )}
-</button>
+          <option value="trainer">
+            Trainer
+          </option>
 
-</div>
+          <option value="employee">
+            Employee
+          </option>
 
-{errors.confirmPassword && (
-<p className="text-red-500 text-sm">
-  {errors.confirmPassword}
-</p>
-)}
+        </select>
 
-            </div>
+        {errors.role && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.role}
+          </p>
+        )}
 
-            {/* TERMS */}
-            <div className="flex items-center gap-2 text-sm text-gray-600 mt-4">
-              <input type="checkbox" />
-              <p>I agree to Terms & Privacy Policy</p>
-            </div>
+      </div>
 
-            {/* GOOGLE BUTTON */}
-            <Button
-              variant="outline"
-              className="w-full h-12 rounded-xl mt-6"
-            >
-              Continue with Google
-            </Button>
+      {/* PASSWORD */}
+      <div>
 
-            {/* MAIN BUTTON */}
-            <Button
-  disabled={loading}
-  onClick={() => {
+        <div className="relative">
 
-    let newErrors = {}
+          <Input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            className="h-12 rounded-xl pr-12"
+          />
 
-    if (!name) {
-      newErrors.name = "Full name is required"
-    }
-
-    if (!email) {
-      newErrors.email = "Email is required"
-    }
-
-    if (!password) {
-      newErrors.password = "Password is required"
-    } else if (password.length < 8) {
-      newErrors.password =
-        "Password must be at least 8 characters"
-    }
-
-    if (!confirmPassword) {
-      newErrors.confirmPassword =
-        "Please confirm your password"
-    }
-
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword =
-        "Passwords do not match"
-    }
-
-    setErrors(newErrors)
-
-    if (Object.keys(newErrors).length > 0) {
-
-      toast.error("Please fix the form errors")
-
-      return
-    }
-
-    setLoading(true)
-
-    setTimeout(() => {
-
-      setLoading(false)
-
-      toast.success(
-        "Account created successfully!"
-      )
-
-    }, 2000)
-
-  }}
-  className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:scale-[1.02] transition-all duration-300 shadow-lg text-white font-semibold mt-6"
->
-  {loading
-    ? "Creating Account..."
-    : "Create Account"}
-</Button>
-
-            {/* FOOTER */}
-            <p className="text-center text-sm text-gray-600 mt-5">
-              Already have an account?{" "}
-              <span className="text-violet-600 font-medium cursor-pointer hover:underline">
-                Sign In
-              </span>
-            </p>
-
-          </div>
+          <button
+            type="button"
+            onClick={() =>
+              setShowPassword(!showPassword)
+            }
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+          >
+            {showPassword ? (
+              <EyeOff size={20} />
+            ) : (
+              <Eye size={20} />
+            )}
+          </button>
 
         </div>
 
-      )}
-<LoginModal
-  open={loginOpen}
-  setOpen={setLoginOpen}
-/>
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.password}
+          </p>
+        )}
+
+      </div>
+
+      {/* CONFIRM PASSWORD */}
+      <div>
+
+        <div className="relative">
+
+          <Input
+            type={
+              showConfirmPassword
+                ? "text"
+                : "password"
+            }
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) =>
+              setConfirmPassword(
+                e.target.value
+              )
+            }
+            className="h-12 rounded-xl pr-12"
+          />
+
+          <button
+            type="button"
+            onClick={() =>
+              setShowConfirmPassword(
+                !showConfirmPassword
+              )
+            }
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+          >
+            {showConfirmPassword ? (
+              <EyeOff size={20} />
+            ) : (
+              <Eye size={20} />
+            )}
+          </button>
+
+        </div>
+
+        {errors.confirmPassword && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.confirmPassword}
+          </p>
+        )}
+
+      </div>
+
     </div>
+
+    {/* TERMS */}
+    <div className="flex items-center gap-2 text-sm text-gray-600 mt-4">
+      <input type="checkbox" />
+      <p>I agree to Terms & Privacy Policy</p>
+    </div>
+
+    {/* GOOGLE BUTTON */}
+    <Button
+      variant="outline"
+      className="w-full h-12 rounded-xl mt-6"
+    >
+      Continue with Google
+    </Button>
+
+    {/* MAIN BUTTON */}
+    <Button
+      disabled={loading}
+      onClick={() => {
+
+        let newErrors = {}
+
+        if (!name) {
+          newErrors.name =
+            "Full name is required"
+        }
+
+        if (!email) {
+          newErrors.email =
+            "Email is required"
+        }
+
+        if (!role) {
+          newErrors.role =
+            "Please select a role"
+        }
+
+        if (!password) {
+          newErrors.password =
+            "Password is required"
+        } else if (password.length < 8) {
+          newErrors.password =
+            "Password must be at least 8 characters"
+        }
+
+        if (!confirmPassword) {
+          newErrors.confirmPassword =
+            "Please confirm your password"
+        }
+
+        if (
+          password !== confirmPassword
+        ) {
+          newErrors.confirmPassword =
+            "Passwords do not match"
+        }
+
+        setErrors(newErrors)
+
+        if (
+          Object.keys(newErrors).length > 0
+        ) {
+
+          toast.error(
+            "Please fix the form errors"
+          )
+
+          return
+        }
+
+        setLoading(true)
+
+        setTimeout(() => {
+
+          setLoading(false)
+
+          toast.success(
+            "Account created successfully!"
+          )
+
+        }, 2000)
+
+      }}
+      className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:scale-[1.02] transition-all duration-300 shadow-lg text-white font-semibold mt-6"
+    >
+      {loading
+        ? "Creating Account..."
+        : "Create Account"}
+    </Button>
+
+    {/* FOOTER */}
+    <p className="text-center text-sm text-gray-600 mt-5">
+      Already have an account?{" "}
+      <span className="text-violet-600 font-medium cursor-pointer hover:underline">
+        Sign In
+      </span>
+    </p>
+
+  </div>
+
+</div>
+
+)}
+
+<LoginModal
+open={loginOpen}
+setOpen={setLoginOpen}
+/>
+</div>
   )
-}            
-                  
-
-     
-
-              
-
-
-      
+}
