@@ -16,7 +16,6 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
-import { tenantInfo } from "./tenant-admin-data"
 
 export const tenantMenuItems = [
   {
@@ -91,7 +90,7 @@ export function TenantSidebarNav({ className, onNavigate }) {
   )
 }
 
-export function TenantSidebarProfile() {
+export function TenantSidebarProfile({ tenantInfo }) {
   const router = useRouter()
   const [loggingOut, setLoggingOut] = useState(false)
 
@@ -157,7 +156,7 @@ export function TenantSidebarProfile() {
   )
 }
 
-export default function TenantAdminSidebar({ className }) {
+export default function TenantAdminSidebar({ className, tenantInfo }) {
   return (
     <aside
       className={cn(
@@ -184,7 +183,7 @@ export default function TenantAdminSidebar({ className }) {
         <TenantSidebarNav className="min-h-0 flex-1 overflow-y-auto" />
       </div>
       <div className="shrink-0 p-5 pt-0">
-        <TenantSidebarProfile />
+        <TenantSidebarProfile tenantInfo={tenantInfo} />
       </div>
     </aside>
   )

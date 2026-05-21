@@ -17,4 +17,7 @@ export {
   tenantActivities,
   reports,
   learningChartData,
+  departments,
+  courseCatalog,
+  courseCategories,
 } from "./tenant-admin-data"

@@ -1,0 +1,2 @@
+/** Inline script for layout <head> — prevents theme flash before React hydrates */
+export const themeInitScript = `(function(){try{var k="skillsphere-theme",t=localStorage.getItem(k)||"system",d=document.documentElement,r=t==="system"?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":t;d.classList.remove("light","dark");d.classList.add(r);d.style.colorScheme=r}catch(e){}})();`

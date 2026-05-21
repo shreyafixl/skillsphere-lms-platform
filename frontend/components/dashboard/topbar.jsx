@@ -11,6 +11,7 @@ export default function Topbar({
   searchPlaceholder = "Search tenants, users, courses...",
   userName = "Admin User",
   userRoleLabel = "Super Admin",
+  notifications,
 }) {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/70 px-4 py-3 backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 dark:border-slate-800/60 dark:bg-slate-900/70 sm:px-6 sm:py-4">
@@ -50,7 +51,7 @@ export default function Topbar({
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <ThemeToggle />
 
-          <NotificationDropdown />
+          <NotificationDropdown notifications={notifications} />
 
           <div className="hidden items-center gap-3 border-l border-slate-200 pl-3 dark:border-slate-700 sm:flex">
             <div className="text-right">

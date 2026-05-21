@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
+import { useTheme } from "@/components/providers/ThemeProvider"
 import { cn } from "@/lib/utils"
 
 export default function ThemeToggle({ className }) {

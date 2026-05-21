@@ -9,6 +9,8 @@ import {
 } from "lucide-react"
 import PageHeader from "@/components/dashboard/PageHeader"
 import DashboardCard from "@/components/dashboard/DashboardCard"
+import { Button } from "@/components/ui/button"
+import { PrimaryActionButton } from "@/components/dashboard/ActionButton"
 import {
   TenantAdminLayout,
   TenantStatsGrid,
@@ -59,55 +61,100 @@ const quickLinks = [
 export default function TenantAdminDashboard() {
   return (
     <TenantAdminLayout topbarTitle="Overview">
-      <div className="space-y-6 sm:space-y-8">
-        <PageHeader
-          title={tenantAdminCopy.dashboardHeading}
-          description={tenantAdminCopy.dashboardDescription}
-        />
+      {({
+        employees,
+        trainers,
+        assignments,
+        reports,
+        openInviteEmployee,
+        openAssignCourse,
+        openCreateReport,
+        openEditEmployee,
+        openEditTrainer,
+        openFilters,
+      }) => (
+        <div className="space-y-6 sm:space-y-8">
+          <PageHeader
+            title={tenantAdminCopy.dashboardHeading}
+            description={tenantAdminCopy.dashboardDescription}
+            action={
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={openAssignCourse}
+                  className="h-11 rounded-xl border-slate-200 px-4 dark:border-slate-700"
+                >
+                  Assign Course
+                </Button>
+                <PrimaryActionButton onClick={openInviteEmployee}>
+                  Invite Employee
+                </PrimaryActionButton>
+              </div>
+            }
+          />
 
-        <TenantStatsGrid />
+          <TenantStatsGrid />
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-          {quickLinks.map((link) => {
-            const Icon = link.icon
-            return (
-              <Link key={link.href} href={link.href}>
-                <DashboardCard className="h-full p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/10 dark:hover:border-violet-500/30 sm:p-5">
-                  <div
-                    className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${link.bg}`}
-                  >
-                    <Icon size={20} className={link.color} />
-                  </div>
-                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-                    {link.title}
-                  </p>
-                  <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
-                    {link.description}
-                  </p>
-                </DashboardCard>
-              </Link>
-            )
-          })}
-        </div>
-
-        <TenantAnalyticsChart />
-
-        <CourseAssignmentsTable compact showViewAll />
-
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-          <EmployeesTable compact showViewAll />
-          <TrainersTable compact showViewAll />
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-          <div className="xl:col-span-2">
-            <ReportsSection limit={3} showViewAll />
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {quickLinks.map((link) => {
+              const Icon = link.icon
+              return (
+                <Link key={link.href} href={link.href}>
+                  <DashboardCard className="h-full p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/10 dark:hover:border-violet-500/30 sm:p-5">
+                    <div
+                      className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${link.bg}`}
+                    >
+                      <Icon size={20} className={link.color} />
+                    </div>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                      {link.title}
+                    </p>
+                    <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                      {link.description}
+                    </p>
+                  </DashboardCard>
+                </Link>
+              )
+            })}
           </div>
-          <div>
-            <TenantActivityPanel limit={5} />
+
+          <TenantAnalyticsChart />
+
+          <CourseAssignmentsTable
+            data={assignments}
+            onOpenFilters={openFilters}
+            compact
+            showViewAll
+          />
+
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+            <EmployeesTable
+              data={employees}
+              onEditEmployee={openEditEmployee}
+              onOpenFilters={openFilters}
+              compact
+              showViewAll
+            />
+            <TrainersTable
+              data={trainers}
+              onEditTrainer={openEditTrainer}
+              onOpenFilters={openFilters}
+              compact
+              showViewAll
+            />
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+            <div className="xl:col-span-2">
+              <ReportsSection data={reports} limit={3} showViewAll />
+            </div>
+            <div>
+              <TenantActivityPanel limit={5} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </TenantAdminLayout>
   )
 }

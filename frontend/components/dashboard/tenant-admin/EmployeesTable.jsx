@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import Link from "next/link"
-import { Filter, MoreHorizontal, Pencil } from "lucide-react"
+import { Filter, Pencil } from "lucide-react"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
 import SearchBar from "./SearchBar"
@@ -17,22 +17,25 @@ import {
 import { employees as defaultEmployees } from "./tenant-admin-data"
 
 export default function EmployeesTable({
-  data = defaultEmployees,
+  data,
+  onEditEmployee,
+  onOpenFilters,
   compact = false,
   showViewAll = false,
 }) {
+  const rows = data ?? defaultEmployees
   const [search, setSearch] = useState("")
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase()
-    const list = data.filter(
+    const list = rows.filter(
       (e) =>
         e.name.toLowerCase().includes(q) ||
         e.email.toLowerCase().includes(q) ||
         e.department.toLowerCase().includes(q)
     )
     return compact ? list.slice(0, 5) : list
-  }, [data, search, compact])
+  }, [rows, search, compact])
 
   return (
     <DashboardCard>
@@ -59,6 +62,7 @@ export default function EmployeesTable({
           />
           <button
             type="button"
+            onClick={() => onOpenFilters?.("employees")}
             className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/80 px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-violet-200 hover:bg-violet-50 dark:border-slate-700 dark:text-slate-300 dark:hover:border-violet-500/40 dark:hover:bg-violet-500/10"
           >
             <Filter size={16} />
@@ -111,14 +115,11 @@ export default function EmployeesTable({
               <DataTableCell>
                 <button
                   type="button"
+                  onClick={() => onEditEmployee?.(employee)}
                   className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
                   aria-label={`Edit ${employee.name}`}
                 >
-                  {compact ? (
-                    <MoreHorizontal size={18} />
-                  ) : (
-                    <Pencil size={16} />
-                  )}
+                  <Pencil size={compact ? 18 : 16} />
                 </button>
               </DataTableCell>
             </DataTableRow>

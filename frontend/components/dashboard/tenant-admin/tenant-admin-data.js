@@ -15,6 +15,34 @@ export const tenantInfo = {
   admin: "Tenant Administrator",
 }
 
+export const departments = [
+  "Engineering",
+  "Sales",
+  "HR",
+  "Marketing",
+  "Finance",
+  "Operations",
+]
+
+export const courseCategories = [
+  "Technology",
+  "Leadership",
+  "Compliance",
+  "Sales",
+  "Soft Skills",
+]
+
+export const courseCatalog = [
+  "Security Awareness 2025",
+  "React Advanced Patterns",
+  "Leadership Fundamentals",
+  "Sales Playbook Q2",
+  "Data Privacy Essentials",
+  "Effective Communication",
+  "Project Management Basics",
+  "Customer Success Training",
+]
+
 export const overviewStats = [
   {
     title: "Total Employees",

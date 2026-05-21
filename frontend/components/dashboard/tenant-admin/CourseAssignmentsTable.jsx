@@ -17,21 +17,23 @@ import {
 import { courseAssignments as defaultAssignments } from "./tenant-admin-data"
 
 export default function CourseAssignmentsTable({
-  data = defaultAssignments,
+  data,
+  onOpenFilters,
   compact = false,
   showViewAll = false,
 }) {
+  const rows = data ?? defaultAssignments
   const [search, setSearch] = useState("")
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase()
-    const list = data.filter(
+    const list = rows.filter(
       (c) =>
         c.course.toLowerCase().includes(q) ||
         c.trainer.toLowerCase().includes(q)
     )
     return compact ? list.slice(0, 4) : list
-  }, [data, search, compact])
+  }, [rows, search, compact])
 
   return (
     <DashboardCard>
@@ -58,6 +60,7 @@ export default function CourseAssignmentsTable({
           />
           <button
             type="button"
+            onClick={() => onOpenFilters?.("courses")}
             className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/80 px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-violet-200 hover:bg-violet-50 dark:border-slate-700 dark:text-slate-300 dark:hover:border-violet-500/40 dark:hover:bg-violet-500/10"
           >
             <Filter size={16} />

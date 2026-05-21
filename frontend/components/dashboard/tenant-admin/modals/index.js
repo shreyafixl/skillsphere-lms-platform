@@ -1,0 +1,7 @@
+export { default as EmployeeFormModal } from "./EmployeeFormModal"
+export { default as TrainerFormModal } from "./TrainerFormModal"
+export { default as AssignCourseModal } from "./AssignCourseModal"
+export { default as TenantReportFormModal } from "./TenantReportFormModal"
+export { default as UploadCourseMaterialModal } from "./UploadCourseMaterialModal"
+export { default as SettingsFormModal } from "./SettingsFormModal"
+export { default as FiltersModal } from "./FiltersModal"

@@ -29,11 +29,12 @@ const typeColors = {
 }
 
 export default function ReportsSection({
-  data = defaultReports,
+  data,
   limit,
   showViewAll = false,
 }) {
-  const items = limit ? data.slice(0, limit) : data
+  const rows = data ?? defaultReports
+  const items = limit ? rows.slice(0, limit) : rows
 
   const handleDownload = (name) => {
     toast.success("Report download started", { description: name })

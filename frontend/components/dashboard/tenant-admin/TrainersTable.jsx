@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import Link from "next/link"
-import { Filter, Star } from "lucide-react"
+import { Filter, Pencil, Star } from "lucide-react"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
 import SearchBar from "./SearchBar"
@@ -17,22 +17,25 @@ import {
 import { trainers as defaultTrainers } from "./tenant-admin-data"
 
 export default function TrainersTable({
-  data = defaultTrainers,
+  data,
+  onEditTrainer,
+  onOpenFilters,
   compact = false,
   showViewAll = false,
 }) {
+  const rows = data ?? defaultTrainers
   const [search, setSearch] = useState("")
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase()
-    const list = data.filter(
+    const list = rows.filter(
       (t) =>
         t.name.toLowerCase().includes(q) ||
         t.email.toLowerCase().includes(q) ||
         t.specialty.toLowerCase().includes(q)
     )
     return compact ? list.slice(0, 4) : list
-  }, [data, search, compact])
+  }, [rows, search, compact])
 
   return (
     <DashboardCard>
@@ -59,6 +62,7 @@ export default function TrainersTable({
           />
           <button
             type="button"
+            onClick={() => onOpenFilters?.("trainers")}
             className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/80 px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-violet-200 hover:bg-violet-50 dark:border-slate-700 dark:text-slate-300 dark:hover:border-violet-500/40 dark:hover:bg-violet-500/10"
           >
             <Filter size={16} />
@@ -68,7 +72,7 @@ export default function TrainersTable({
       )}
       <DataTable minWidth="640px">
         <DataTableHead
-          columns={["Trainer", "Specialty", "Courses", "Learners", "Rating", "Status"]}
+          columns={["Trainer", "Specialty", "Courses", "Learners", "Rating", "Status", ""]}
         />
         <tbody>
           {filtered.map((trainer) => (
@@ -103,6 +107,16 @@ export default function TrainersTable({
               </DataTableCell>
               <DataTableCell>
                 <StatusBadge status={trainer.status} />
+              </DataTableCell>
+              <DataTableCell>
+                <button
+                  type="button"
+                  onClick={() => onEditTrainer?.(trainer)}
+                  className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
+                  aria-label={`Edit ${trainer.name}`}
+                >
+                  <Pencil size={16} />
+                </button>
               </DataTableCell>
             </DataTableRow>
           ))}
