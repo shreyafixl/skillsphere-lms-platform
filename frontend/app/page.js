@@ -19,6 +19,19 @@ import LoginModal from "@/components/auth/LoginModal"
 
 import { Eye, EyeOff } from "lucide-react"
 import { toast } from "sonner"
+import {
+  HeroStagger,
+  HeroItem,
+  AnalyticsCard,
+  FloatingCard,
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+  FeatureCard,
+  PricingCard,
+  MotionCTA,
+} from "@/components/landing/motion"
+import { featureItems } from "@/components/landing/landing-data"
 
 export default function Home() {
   const [open, setOpen] = useState(false)
@@ -40,14 +53,14 @@ export default function Home() {
   const [role, setRole] = useState("")
 
   return (
-    <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50">
+    <div className="landing-light relative min-h-screen overflow-hidden bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50 text-slate-900">
 
       {/* BACKGROUND ORBS */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-300/30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-pink-300/30 rounded-full blur-3xl"></div>
 
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/70 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200/60 bg-white/80 backdrop-blur-xl">
 
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
@@ -58,7 +71,7 @@ export default function Home() {
               S
             </div>
 
-            <span className="font-bold text-lg">
+            <span className="text-lg font-bold text-slate-900">
               SkillSphere
             </span>
 
@@ -67,15 +80,15 @@ export default function Home() {
           {/* NAV LINKS */}
           <nav className="hidden md:flex items-center gap-8">
 
-            <Link href="#" className="text-sm hover:text-purple-600">
+            <Link href="#" className="text-sm font-medium text-slate-600 transition-colors hover:text-violet-600">
               Features
             </Link>
 
-            <Link href="#" className="text-sm hover:text-purple-600">
+            <Link href="#" className="text-sm font-medium text-slate-600 transition-colors hover:text-violet-600">
               Pricing
             </Link>
 
-            <Link href="#" className="text-sm hover:text-purple-600">
+            <Link href="#" className="text-sm font-medium text-slate-600 transition-colors hover:text-violet-600">
               Contact
             </Link>
 
@@ -88,6 +101,7 @@ export default function Home() {
   variant="ghost"
   size="sm"
   onClick={() => setLoginOpen(true)}
+  className="text-slate-700 hover:bg-slate-100 hover:text-slate-900"
 >
   Sign In
 </Button>
@@ -107,75 +121,81 @@ export default function Home() {
       </header>
 
     {/* HERO SECTION */}
-<section className="relative py-24 overflow-visible">
+<section className="relative overflow-visible py-24">
 
-  <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center overflow-visible">
+  <div className="mx-auto grid max-w-6xl items-center gap-20 overflow-visible px-6 lg:grid-cols-2">
 
     {/* LEFT */}
-    <div>
+    <HeroStagger>
 
-      <div className="inline-flex items-center rounded-full bg-white/70 border px-4 py-2 text-sm mb-6 backdrop-blur">
-        <span className="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-        Enterprise Learning Platform
-      </div>
-
-      <h1 className="text-5xl md:text-6xl font-black leading-tight">
-
-        Transform Learning
-        <br />
-
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-600">
-          Empower Growth
-        </span>
-
-      </h1>
-
-      <p className="mt-6 text-lg text-gray-600 max-w-xl">
-        Build smarter teams with AI-powered learning,
-        onboarding, analytics and certifications.
-      </p>
-
-      <div className="flex flex-wrap gap-4 mt-8">
-
-        <Button
-          size="lg"
-          className="bg-orange-500 hover:bg-orange-600"
-          onClick={() => setOpen(true)}
-        >
-          Start Free Trial
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-
-        <Button
-          size="lg"
-          variant="outline"
-        >
-          Watch Demo
-        </Button>
-
-      </div>
-
-      <div className="flex gap-6 mt-8 text-sm text-gray-600">
-
-        <div className="flex items-center gap-2">
-          <Check className="h-4 w-4 text-green-500" />
-          14 days free
+      <HeroItem>
+        <div className="mb-6 inline-flex items-center rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 backdrop-blur">
+          <span className="mr-2 h-2 w-2 rounded-full bg-green-500"></span>
+          Enterprise Learning Platform
         </div>
+      </HeroItem>
 
-        <div className="flex items-center gap-2">
-          <Check className="h-4 w-4 text-green-500" />
-          No credit card
+      <HeroItem>
+        <h1 className="text-5xl font-black leading-tight text-slate-900 md:text-6xl">
+          Transform Learning
+          <br />
+          <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+            Empower Growth
+          </span>
+        </h1>
+      </HeroItem>
+
+      <HeroItem>
+        <p className="mt-6 max-w-xl text-lg text-slate-600">
+          Build smarter teams with AI-powered learning,
+          onboarding, analytics and certifications.
+        </p>
+      </HeroItem>
+
+      <HeroItem>
+        <div className="mt-8 flex flex-wrap gap-4">
+          <MotionCTA variant="glow">
+            <Button
+              size="lg"
+              className="bg-orange-500 hover:bg-orange-600"
+              onClick={() => setOpen(true)}
+            >
+              Start Free Trial
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </MotionCTA>
+          <MotionCTA variant="outline-glow">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-slate-300 bg-white/80 text-slate-700 hover:bg-white hover:text-slate-900"
+            >
+              Watch Demo
+            </Button>
+          </MotionCTA>
         </div>
+      </HeroItem>
 
-      </div>
+      <HeroItem>
+        <div className="mt-8 flex gap-6 text-sm text-slate-600">
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-green-500" />
+            14 days free
+          </div>
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-green-500" />
+            No credit card
+          </div>
+        </div>
+      </HeroItem>
 
-    </div>
+    </HeroStagger>
 
     {/* RIGHT SIDE ANALYTICS */}
     <div className="relative flex justify-center overflow-visible">
 
       {/* MAIN CARD */}
-      <div className="relative z-10 bg-[#071133] text-white rounded-[32px] p-12 w-[650px] min-h-[460px] shadow-2xl">
+      <AnalyticsCard className="relative z-10 min-h-[460px] w-full max-w-[650px] rounded-[32px] bg-[#071133] p-12 text-white shadow-2xl">
 
         <h2 className="text-4xl font-bold mb-12">
           Learning Analytics
@@ -224,14 +244,17 @@ export default function Home() {
 
         </div>
 
-      </div>
+      </AnalyticsCard>
 
       {/* FLOATING CARD 1 */}
-      <div className="absolute -top-10 -right-8 bg-white rounded-3xl shadow-2xl p-6 w-64 border border-gray-100 z-20">
+      <FloatingCard
+        delay={0}
+        className="absolute -right-8 -top-10 z-20 w-64 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl"
+      >
 
         <div className="flex justify-between items-center mb-4">
 
-          <h4 className="font-semibold text-base">
+          <h4 className="text-base font-semibold text-slate-900">
             Team Progress
           </h4>
 
@@ -247,14 +270,17 @@ export default function Home() {
 
         </div>
 
-        <p className="text-sm text-gray-500 leading-relaxed">
+        <p className="text-sm leading-relaxed text-slate-600">
           Weekly learning performance increased.
         </p>
 
-      </div>
+      </FloatingCard>
 
       {/* FLOATING CARD 2 */}
-      <div className="absolute -bottom-10 -left-8 bg-white rounded-3xl shadow-2xl p-6 w-64 border border-gray-100 z-20">
+      <FloatingCard
+        delay={0.4}
+        className="absolute -bottom-10 -left-8 z-20 w-64 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl"
+      >
 
         <div className="flex items-center gap-4 mb-5">
 
@@ -264,11 +290,11 @@ export default function Home() {
 
           <div>
 
-            <h4 className="font-semibold text-base">
+            <h4 className="text-base font-semibold text-slate-900">
               Skill Goals
             </h4>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-slate-600">
               12 Goals Completed
             </p>
 
@@ -286,13 +312,11 @@ export default function Home() {
 
         </div>
 
-        <div className="w-full bg-gray-200 rounded-full h-2">
-
-          <div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full w-[82%]"></div>
-
+        <div className="h-2 w-full rounded-full bg-gray-200">
+          <div className="h-2 w-[82%] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"></div>
         </div>
 
-      </div>
+      </FloatingCard>
 
     </div>
 
@@ -304,29 +328,29 @@ export default function Home() {
 
       
       {/* DASHBOARD FEATURES SECTION */}
-<section className="py-16 md:py-20 relative overflow-hidden">
+<section className="relative overflow-hidden py-16 md:py-20">
 
-  <div className="absolute inset-0 bg-gradient-to-br from-blue-300/80 via-indigo-300/70 to-purple-300/80 -z-10"></div>
+  <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-300/80 via-indigo-300/70 to-purple-300/80"></div>
 
-  <div className="container max-w-6xl mx-auto px-6">
+  <div className="container mx-auto max-w-6xl px-6">
 
-    <div className="text-center mb-12 max-w-2xl mx-auto">
+    <ScrollReveal className="mx-auto mb-12 max-w-2xl text-center">
 
-      <h2 className="text-3xl md:text-4xl font-bold italic mb-4">
+      <h2 className="mb-4 text-3xl font-bold italic text-slate-900 md:text-4xl">
         Powerful Dashboards for Every Role
       </h2>
 
-      <p className="text-muted-foreground">
+      <p className="text-slate-600">
         Multi-role dashboards tailored for administrators,
         trainers, and learners with real-time insights.
       </p>
 
-    </div>
+    </ScrollReveal>
 
     <div className="grid md:grid-cols-2 gap-6">
 
       {/* ADMIN */}
-      <Card className="border shadow-sm bg-white/80 backdrop-blur-sm overflow-hidden relative">
+      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
 
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-400 to-indigo-500"></div>
 
@@ -339,11 +363,11 @@ export default function Home() {
             </div>
 
             <div>
-              <h3 className="font-semibold">
+              <h3 className="font-semibold text-slate-900">
                 Admin Dashboard
               </h3>
 
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-slate-600">
                 Organization insights
               </p>
             </div>
@@ -354,12 +378,12 @@ export default function Home() {
 
             <div>
 
-              <div className="flex justify-between text-sm mb-1">
+              <div className="mb-1 flex justify-between text-sm text-slate-700">
                 <span>Total Learners</span>
-                <span className="font-medium">12.8K</span>
+                <span className="font-medium text-slate-900">12.8K</span>
               </div>
 
-              <div className="h-2 bg-muted rounded-full overflow-hidden">
+              <div className="h-2 overflow-hidden rounded-full bg-slate-200">
 
                 <div
                   className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500"
@@ -370,14 +394,14 @@ export default function Home() {
 
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Active Courses</span>
-              <span className="font-medium">48</span>
+              <span className="font-medium text-slate-900">48</span>
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Completion</span>
-              <span className="font-medium">87%</span>
+              <span className="font-medium text-slate-900">87%</span>
             </div>
 
           </div>
@@ -387,7 +411,7 @@ export default function Home() {
       </Card>
 
       {/* TRAINER */}
-      <Card className="border shadow-sm bg-white/80 backdrop-blur-sm overflow-hidden relative">
+      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
 
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-500"></div>
 
@@ -400,11 +424,11 @@ export default function Home() {
             </div>
 
             <div>
-              <h3 className="font-semibold">
+              <h3 className="font-semibold text-slate-900">
                 Trainer Dashboard
               </h3>
 
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-slate-600">
                 Course management
               </p>
             </div>
@@ -415,12 +439,12 @@ export default function Home() {
 
             <div>
 
-              <div className="flex justify-between text-sm mb-1">
+              <div className="mb-1 flex justify-between text-sm text-slate-700">
                 <span>My Learners</span>
-                <span className="font-medium">342</span>
+                <span className="font-medium text-slate-900">342</span>
               </div>
 
-              <div className="h-2 bg-muted rounded-full overflow-hidden">
+              <div className="h-2 overflow-hidden rounded-full bg-slate-200">
 
                 <div
                   className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
@@ -431,14 +455,14 @@ export default function Home() {
 
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Courses</span>
-              <span className="font-medium">12</span>
+              <span className="font-medium text-slate-900">12</span>
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Rating</span>
-              <span className="font-medium">4.8★</span>
+              <span className="font-medium text-slate-900">4.8★</span>
             </div>
 
           </div>
@@ -448,7 +472,7 @@ export default function Home() {
       </Card>
 
       {/* LEARNER */}
-      <Card className="border shadow-sm bg-white/80 backdrop-blur-sm overflow-hidden relative">
+      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
 
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-teal-500"></div>
 
@@ -461,11 +485,11 @@ export default function Home() {
             </div>
 
             <div>
-              <h3 className="font-semibold">
+              <h3 className="font-semibold text-slate-900">
                 Learner Dashboard
               </h3>
 
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-slate-600">
                 Learning journey
               </p>
             </div>
@@ -476,12 +500,12 @@ export default function Home() {
 
             <div>
 
-              <div className="flex justify-between text-sm mb-1">
+              <div className="mb-1 flex justify-between text-sm text-slate-700">
                 <span>Progress</span>
-                <span className="font-medium">68%</span>
+                <span className="font-medium text-slate-900">68%</span>
               </div>
 
-              <div className="h-2 bg-muted rounded-full overflow-hidden">
+              <div className="h-2 overflow-hidden rounded-full bg-slate-200">
 
                 <div
                   className="h-full bg-gradient-to-r from-green-400 to-cyan-500"
@@ -492,14 +516,14 @@ export default function Home() {
 
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Enrolled</span>
-              <span className="font-medium">8</span>
+              <span className="font-medium text-slate-900">8</span>
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Certificates</span>
-              <span className="font-medium">3</span>
+              <span className="font-medium text-slate-900">3</span>
             </div>
 
           </div>
@@ -509,7 +533,7 @@ export default function Home() {
       </Card>
 
       {/* AI */}
-      <Card className="border shadow-sm bg-white/80 backdrop-blur-sm overflow-hidden relative">
+      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
 
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-rose-500"></div>
 
@@ -522,11 +546,11 @@ export default function Home() {
             </div>
 
             <div>
-              <h3 className="font-semibold">
+              <h3 className="font-semibold text-slate-900">
                 AI Assistant
               </h3>
 
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-slate-600">
                 Learning support
               </p>
             </div>
@@ -535,21 +559,21 @@ export default function Home() {
 
           <div className="space-y-4">
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Support</span>
-              <span className="font-medium">24/7</span>
+              <span className="font-medium text-slate-900">24/7</span>
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Status</span>
-              <span className="font-medium text-green-500">
+              <span className="font-medium text-green-600">
                 Active
               </span>
             </div>
 
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm text-slate-700">
               <span>Recommendations</span>
-              <Check className="h-4 w-4" />
+              <Check className="h-4 w-4 text-green-600" />
             </div>
 
           </div>
@@ -564,203 +588,74 @@ export default function Home() {
 
 </section>
       {/* FEATURES SECTION */}
-<section className="py-24 px-6">
+<section className="px-6 py-24">
 
-  <div className="max-w-7xl mx-auto">
+  <div className="mx-auto max-w-7xl">
 
-    {/* HEADING */}
-    <div className="text-center mb-16">
+    <ScrollReveal className="mb-16 text-center">
 
-      <h2 className="text-5xl font-bold mb-4">
+      <h2 className="mb-4 text-5xl font-bold text-slate-900">
         Powerful Features
       </h2>
 
-      <p className="text-gray-600 text-lg">
+      <p className="text-lg text-slate-600">
         Everything you need to manage enterprise learning.
       </p>
 
-    </div>
+    </ScrollReveal>
 
-    {/* FEATURE GRID */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      {/* CARD 1 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-        <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-          📊
-        </div>
-
-        <h3 className="text-2xl font-bold mb-3">
-          Analytics
-        </h3>
-
-        <p className="text-gray-600">
-          Real-time dashboards and insights for smarter learning decisions.
-        </p>
-      </div>
-
-      {/* CARD 2 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-        <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-          👥
-        </div>
-
-        <h3 className="text-2xl font-bold mb-3">
-          Team Training
-        </h3>
-
-        <p className="text-gray-600">
-          Manage learners and trainers easily with collaborative tools.
-        </p>
-      </div>
-
-      {/* CARD 3 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-        <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-          📈
-        </div>
-
-        <h3 className="text-2xl font-bold mb-3">
-          Growth Tracking
-        </h3>
-
-        <p className="text-gray-600">
-          Measure skill progression with visual performance tracking.
-        </p>
-      </div>
-
-      {/* CARD 4 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-        <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-          🤖
-        </div>
-
-        <h3 className="text-2xl font-bold mb-3">
-          AI Assistant
-        </h3>
-
-        <p className="text-gray-600">
-          Personalized AI learning support and recommendations.
-        </p>
-      </div>
-
-      {/* CARD 5 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-        <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-          🎯
-        </div>
-
-        <h3 className="text-2xl font-bold mb-3">
-          Smart Goals
-        </h3>
-
-        <p className="text-gray-600">
-          Set milestones and track achievements with intelligent goals.
-        </p>
-      </div>
-
-      {/* CARD 6 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-        <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-          🔒
-        </div>
-
-        <h3 className="text-2xl font-bold mb-3">
-          Secure Platform
-        </h3>
-
-        <p className="text-gray-600">
-          Enterprise-grade security and protected cloud infrastructure.
-        </p>
-      </div>
-      {/* CARD 7 */}
-<div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-  <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-    🌐
-  </div>
-
-  <h3 className="text-2xl font-bold mb-3">
-    Global Access
-  </h3>
-
-  <p className="text-gray-600">
-    Access learning resources anytime from anywhere in the world.
-  </p>
-</div>
-
-{/* CARD 8 */}
-<div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-  <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-    ⚡
-  </div>
-
-  <h3 className="text-2xl font-bold mb-3">
-    Fast Performance
-  </h3>
-
-  <p className="text-gray-600">
-    Optimized platform experience with lightning fast loading speed.
-  </p>
-</div>
-
-{/* CARD 9 */}
-<div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-  <div className="h-16 w-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 text-3xl">
-    🏆
-  </div>
-
-  <h3 className="text-2xl font-bold mb-3">
-    Certifications
-  </h3>
-
-  <p className="text-gray-600">
-    Award certificates and achievements to learners automatically.
-  </p>
-</div>
-
-    </div>
+    <StaggerContainer className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {featureItems.map((feature) => (
+        <StaggerItem key={feature.title}>
+          <FeatureCard
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+          />
+        </StaggerItem>
+      ))}
+    </StaggerContainer>
 
   </div>
 
 </section>
 {/* TESTIMONIALS SECTION */}
-<section className="py-24 px-6">
+<section className="px-6 py-24">
 
-  <div className="max-w-7xl mx-auto">
+  <div className="mx-auto max-w-7xl">
 
-    {/* HEADING */}
-    <div className="text-center mb-16">
+    <ScrollReveal className="mb-16 text-center">
 
-      <h2 className="text-5xl font-bold mb-4">
+      <h2 className="mb-4 text-5xl font-bold text-slate-900">
         What Our Users Say
       </h2>
 
-      <p className="text-gray-600 text-lg">
+      <p className="text-lg text-slate-600">
         Trusted by learners and teams worldwide.
       </p>
 
-    </div>
+    </ScrollReveal>
 
     {/* TESTIMONIAL GRID */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
       {/* TESTIMONIAL 1 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
+      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-xl">
 
         <div className="text-4xl mb-4">
           ⭐⭐⭐⭐⭐
         </div>
 
-        <p className="text-gray-600 mb-6">
+        <p className="text-slate-600 mb-6">
           “SkillSphere transformed the way our company trains employees.”
         </p>
 
         <div>
-          <h4 className="font-bold text-lg">
+          <h4 className="text-lg font-bold text-slate-900">
             Sarah Johnson
           </h4>
 
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-500">
             HR Manager
           </p>
         </div>
@@ -768,22 +663,22 @@ export default function Home() {
       </div>
 
       {/* TESTIMONIAL 2 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
+      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-xl">
 
         <div className="text-4xl mb-4">
           ⭐⭐⭐⭐⭐
         </div>
 
-        <p className="text-gray-600 mb-6">
+        <p className="text-slate-600 mb-6">
           “The AI assistant helped me learn faster and stay motivated.”
         </p>
 
         <div>
-          <h4 className="font-bold text-lg">
+          <h4 className="text-lg font-bold text-slate-900">
             David Lee
           </h4>
 
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-500">
             Software Engineer
           </p>
         </div>
@@ -791,22 +686,22 @@ export default function Home() {
       </div>
 
       {/* TESTIMONIAL 3 */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
+      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-xl">
 
         <div className="text-4xl mb-4">
           ⭐⭐⭐⭐⭐
         </div>
 
-        <p className="text-gray-600 mb-6">
+        <p className="text-slate-600 mb-6">
           “Clean dashboard, excellent analytics, and super easy to use.”
         </p>
 
         <div>
-          <h4 className="font-bold text-lg">
+          <h4 className="text-lg font-bold text-slate-900">
             Emily Carter
           </h4>
 
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-500">
             Team Lead
           </p>
         </div>
@@ -820,40 +715,39 @@ export default function Home() {
 </section>
 
 {/* PRICING SECTION */}
-<section className="py-16 px-4">
+<section className="px-4 py-16">
 
-  <div className="max-w-7xl mx-auto">
+  <div className="mx-auto max-w-7xl">
 
-    {/* HEADING */}
-    <div className="text-center mb-16">
+    <ScrollReveal className="mb-16 text-center">
 
-      <h2 className="text-5xl font-bold mb-4">
+      <h2 className="mb-4 text-5xl font-bold text-slate-900">
         Simple Pricing
       </h2>
 
-      <p className="text-gray-600 text-lg">
+      <p className="text-lg text-slate-600">
         Choose the perfect plan for your learning journey.
       </p>
 
-    </div>
+    </ScrollReveal>
 
-    {/* PRICING GRID */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-3">
 
       {/* BASIC PLAN */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-7 shadow-lg border border-white/20">
-        <h3 className="text-2xl font-bold mb-4">
+      <StaggerItem>
+      <PricingCard className="border border-slate-200/80 bg-white/90 p-7 shadow-lg backdrop-blur-xl">
+        <h3 className="mb-4 text-2xl font-bold text-slate-900">
           Basic
         </h3>
 
-        <h1 className="text-5xl font-bold mb-6">
+        <h1 className="mb-6 text-5xl font-bold text-slate-900">
           $19
-          <span className="text-lg text-gray-500">
+          <span className="text-lg text-slate-500">
             /month
           </span>
         </h1>
 
-        <ul className="space-y-4 text-gray-600 mb-8">
+        <ul className="space-y-4 text-slate-600 mb-8">
 
           <li>✔ Access to core courses</li>
           <li>✔ Basic analytics</li>
@@ -861,14 +755,21 @@ export default function Home() {
 
         </ul>
 
-        <button className="w-full bg-black text-white py-3 rounded-xl font-semibold">
-          Choose Plan
-        </button>
+        <MotionCTA>
+          <button className="w-full rounded-xl bg-black py-3 font-semibold text-white transition-colors hover:bg-slate-800">
+            Choose Plan
+          </button>
+        </MotionCTA>
 
-      </div>
+      </PricingCard>
+      </StaggerItem>
 
       {/* PRO PLAN */}
-      <div className="bg-gradient-to-br from-purple-600 to-violet-700 text-white rounded-2xl p-7 shadow-xl">
+      <StaggerItem>
+      <PricingCard
+        featured
+        className="bg-gradient-to-br from-purple-600 to-violet-700 p-7 text-white"
+      >
 
         <div className="inline-block bg-white/20 px-4 py-1 rounded-full text-sm mb-4">
           Most Popular
@@ -894,27 +795,31 @@ export default function Home() {
 
         </ul>
 
-        <button className="w-full bg-white text-black py-3 rounded-xl font-semibold">
-          Get Started
-        </button>
+        <MotionCTA>
+          <button className="w-full rounded-xl bg-white py-3 font-semibold text-black transition-colors hover:bg-violet-50">
+            Get Started
+          </button>
+        </MotionCTA>
 
-      </div>
+      </PricingCard>
+      </StaggerItem>
 
       {/* ENTERPRISE PLAN */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-7 shadow-lg border border-white/20">
+      <StaggerItem>
+      <PricingCard className="border border-slate-200/80 bg-white/90 p-7 shadow-lg backdrop-blur-xl">
 
-        <h3 className="text-2xl font-bold mb-4">
+        <h3 className="mb-4 text-2xl font-bold text-slate-900">
           Enterprise
         </h3>
 
-        <h1 className="text-5xl font-bold mb-6">
+        <h1 className="mb-6 text-5xl font-bold text-slate-900">
           $99
-          <span className="text-lg text-gray-500">
+          <span className="text-lg text-slate-500">
             /month
           </span>
         </h1>
 
-        <ul className="space-y-4 text-gray-600 mb-8">
+        <ul className="space-y-4 text-slate-600 mb-8">
 
           <li>✔ Unlimited users</li>
           <li>✔ Dedicated support</li>
@@ -923,57 +828,64 @@ export default function Home() {
 
         </ul>
 
-        <button className="w-full bg-black text-white py-3 rounded-xl font-semibold">
-          Contact Sales
-        </button>
+        <MotionCTA>
+          <button className="w-full rounded-xl bg-black py-3 font-semibold text-white transition-colors hover:bg-slate-800">
+            Contact Sales
+          </button>
+        </MotionCTA>
 
-      </div>
+      </PricingCard>
+      </StaggerItem>
 
-    </div>
+    </StaggerContainer>
 
   </div>
 
 </section>
 {/* FINAL CTA SECTION */}
-<section className="py-24 px-6 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-700 text-white relative overflow-hidden">
+<section className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-700 px-6 py-24 text-white">
 
   {/* GLOW EFFECTS */}
   <div className="absolute top-0 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
 
   <div className="absolute bottom-0 right-10 w-96 h-96 bg-pink-400/20 rounded-full blur-3xl"></div>
 
-  <div className="max-w-5xl mx-auto text-center relative z-10">
+  <ScrollReveal className="relative z-10 mx-auto max-w-5xl text-center">
 
-    <h2 className="text-4xl md:text-5xl font-bold mb-6">
+    <h2 className="mb-6 text-4xl font-bold md:text-5xl">
       Ready to Transform Your
       <br />
       Learning Culture?
     </h2>
 
-    <p className="text-lg text-purple-100 max-w-2xl mx-auto mb-10">
+    <p className="mx-auto mb-10 max-w-2xl text-lg text-purple-100">
       Join thousands of organizations using SkillSphere to build smarter,
       faster, and more engaged teams.
     </p>
 
-    {/* BUTTONS */}
-<div className="flex flex-wrap justify-center gap-4 mb-8">
+    <div className="mb-8 flex flex-wrap justify-center gap-4">
 
-  <Button
-    size="lg"
-    className="bg-white text-purple-700 hover:bg-purple-100"
-  >
-    Start Free Trial
-  </Button>
+      <MotionCTA variant="glow">
+        <Button
+          size="lg"
+          className="bg-white text-purple-700 shadow-lg shadow-white/20 hover:bg-purple-100"
+          onClick={() => setOpen(true)}
+        >
+          Start Free Trial
+        </Button>
+      </MotionCTA>
 
-  <Button
-    size="lg"
-    variant="outline"
-    className="border-white text-purple-700 bg-white hover:bg-purple-100"
-  >
-    Schedule Demo
-  </Button>
+      <MotionCTA variant="outline-glow">
+        <Button
+          size="lg"
+          variant="outline"
+          className="border-white bg-white text-purple-700 hover:bg-purple-100"
+        >
+          Schedule Demo
+        </Button>
+      </MotionCTA>
 
-</div>
+    </div>
     {/* SMALL POINTS */}
     <div className="flex flex-wrap justify-center gap-6 text-sm text-purple-200">
 
@@ -991,7 +903,7 @@ export default function Home() {
 
     </div>
 
-  </div>
+  </ScrollReveal>
 
 </section>
 
@@ -1108,7 +1020,7 @@ export default function Home() {
 
 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
 
-  <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl relative">
+  <div className="relative w-full max-w-md rounded-3xl bg-white p-8 text-slate-900 shadow-2xl">
 
     <button
       onClick={() => setOpen(false)}
@@ -1117,11 +1029,11 @@ export default function Home() {
       ✕
     </button>
 
-    <h1 className="text-3xl font-bold mb-2">
+    <h1 className="mb-2 text-3xl font-bold text-slate-900">
       Create Workspace 🚀
     </h1>
 
-    <p className="text-gray-500 mb-6">
+    <p className="mb-6 text-slate-600">
       Build smarter learning experiences for your team
     </p>
 
@@ -1301,7 +1213,7 @@ export default function Home() {
     </div>
 
     {/* TERMS */}
-    <div className="flex items-center gap-2 text-sm text-gray-600 mt-4">
+    <div className="flex items-center gap-2 text-sm text-slate-600 mt-4">
       <input type="checkbox" />
       <p>I agree to Terms & Privacy Policy</p>
     </div>
@@ -1390,7 +1302,7 @@ export default function Home() {
     </Button>
 
     {/* FOOTER */}
-    <p className="text-center text-sm text-gray-600 mt-5">
+    <p className="text-center text-sm text-slate-600 mt-5">
       Already have an account?{" "}
       <span className="text-violet-600 font-medium cursor-pointer hover:underline">
         Sign In

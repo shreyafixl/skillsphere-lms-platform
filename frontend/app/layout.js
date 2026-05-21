@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 
 import './globals.css'
 import { Toaster } from "sonner"
+import { ThemeProvider } from "@/components/providers/ThemeProvider"
 
 const geist = Geist({ subsets: ["latin"], variable: '--font-geist' });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: '--font-geist-mono' });
@@ -25,11 +26,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50`}>
-      <body className="font-sans antialiased">
-        {children}
-        {process.env.NODE_ENV === 'production'}
-        <Toaster richColors position="top-right" />
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geist.variable} ${geistMono.variable}`}
+    >
+      <body className="font-sans antialiased transition-colors duration-300">
+        <ThemeProvider>
+          {children}
+          <Toaster richColors position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   )

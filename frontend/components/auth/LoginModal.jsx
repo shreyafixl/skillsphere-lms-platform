@@ -19,7 +19,7 @@ const [password, setPassword] = useState("")
 
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
 
-      <div className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl relative">
+      <div className="relative w-full max-w-md rounded-3xl bg-white p-8 text-slate-900 shadow-2xl">
 
         {/* CLOSE BUTTON */}
         <button
@@ -30,11 +30,11 @@ const [password, setPassword] = useState("")
         </button>
 
         {/* HEADING */}
-        <h1 className="text-3xl font-bold mb-2">
+        <h1 className="mb-2 text-3xl font-bold text-slate-900">
           Welcome Back 👋
         </h1>
 
-        <p className="text-gray-500 mb-6">
+        <p className="mb-6 text-slate-600">
           Continue your learning journey
         </p>
 
