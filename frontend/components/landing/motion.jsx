@@ -388,16 +388,31 @@ export function MotionCTA({ children, className, variant = "primary" }) {
 }
 
 export function NavLink({ href, children, className }) {
+  const linkClass = cn(
+    polish.navLink,
+    "group py-1 hover:scale-[1.02] active:scale-[0.98] active:text-violet-700",
+    className
+  )
+  const underline = (
+    <span
+      aria-hidden
+      className="absolute -bottom-0.5 left-0 h-px w-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-300 ease-out group-hover:w-full group-focus-visible:w-full"
+    />
+  )
+
+  if (href?.startsWith("#")) {
+    return (
+      <a href={href} className={linkClass}>
+        {children}
+        {underline}
+      </a>
+    )
+  }
+
   return (
-    <Link
-      href={href}
-      className={cn(polish.navLink, "group py-1", className)}
-    >
+    <Link href={href} className={linkClass}>
       {children}
-      <span
-        aria-hidden
-        className="absolute -bottom-0.5 left-0 h-px w-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-300 ease-out group-hover:w-full"
-      />
+      {underline}
     </Link>
   )
 }

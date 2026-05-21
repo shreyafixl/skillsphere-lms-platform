@@ -128,6 +128,11 @@
     @apply font-sans;
     color-scheme: light;
   }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
   html.dark {
     color-scheme: dark;
   }
@@ -142,6 +147,7 @@
 
 /* Landing page: always use light theme tokens (even when html.dark from dashboard preference) */
 .landing-light {
+  scroll-padding-top: 4rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.21 0.034 264.665);
   --card: oklch(1 0 0);

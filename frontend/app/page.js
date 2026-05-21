@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import {
   ArrowRight,
@@ -60,16 +60,30 @@ export default function Home() {
   const [confirmPassword, setConfirmPassword] =
     useState("")
   const [role, setRole] = useState("")
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
-    <div className="landing-light relative min-h-screen overflow-hidden bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50 text-slate-900">
+    <div className="landing-light relative min-h-screen overflow-x-hidden bg-gradient-to-br from-violet-100 via-fuchsia-50 to-amber-50 text-slate-900">
 
       {/* BACKGROUND ORBS */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-300/30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-pink-300/30 rounded-full blur-3xl"></div>
 
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/60 bg-white/75 shadow-sm shadow-slate-900/[0.04] backdrop-blur-xl">
+      <header
+        className={`fixed top-0 inset-x-0 z-50 w-full border-b backdrop-blur-xl transition-all duration-300 ease-out ${
+          scrolled
+            ? "border-white/80 bg-white/90 shadow-md shadow-slate-900/[0.06]"
+            : "border-white/60 bg-white/75 shadow-sm shadow-slate-900/[0.04]"
+        }`}
+      >
 
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
@@ -89,9 +103,9 @@ export default function Home() {
           {/* NAV LINKS */}
           <nav className="hidden md:flex items-center gap-8">
 
-            <NavLink href="#">Features</NavLink>
-            <NavLink href="#">Pricing</NavLink>
-            <NavLink href="#">Contact</NavLink>
+            <NavLink href="#features">Features</NavLink>
+            <NavLink href="#pricing">Pricing</NavLink>
+            <NavLink href="#contact">Contact</NavLink>
 
           </nav>
 
@@ -122,6 +136,9 @@ export default function Home() {
         </div>
 
       </header>
+
+      {/* Navbar spacer — prevents hero/content from sitting under fixed header */}
+      <div className="h-16 shrink-0" aria-hidden="true" />
 
     {/* HERO SECTION */}
 <section className="relative overflow-visible py-24">
@@ -497,7 +514,7 @@ export default function Home() {
 
 </section>
       {/* FEATURES SECTION */}
-<section className="px-6 py-24">
+<section id="features" className="scroll-mt-16 px-6 py-24">
 
   <div className="mx-auto max-w-7xl">
 
@@ -562,7 +579,7 @@ export default function Home() {
 </section>
 
 {/* PRICING SECTION */}
-<section className="px-4 py-16">
+<section id="pricing" className="scroll-mt-16 px-4 py-16">
 
   <div className="mx-auto max-w-7xl">
 
@@ -751,8 +768,8 @@ export default function Home() {
 
 </section>
 
-{/* FOOTER */}
-<footer className="bg-slate-950 text-white py-16 px-6">
+{/* FOOTER / CONTACT */}
+<footer id="contact" className="scroll-mt-16 bg-slate-950 text-white py-16 px-6">
 
   <div className="max-w-6xl mx-auto">
 

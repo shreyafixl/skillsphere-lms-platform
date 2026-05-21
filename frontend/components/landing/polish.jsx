@@ -21,7 +21,7 @@ export const polish = {
   ctaGlowLight:
     "rounded-xl shadow-lg shadow-white/25 ring-1 ring-white/30 transition-all duration-300 ease-out hover:shadow-xl hover:shadow-white/40",
   navLink:
-    "relative text-sm font-medium text-slate-600 transition-colors duration-300 ease-out hover:text-violet-600",
+    "relative text-sm font-medium text-slate-600 transition-all duration-300 ease-out hover:text-violet-600 focus-visible:outline-none focus-visible:text-violet-600 focus-visible:ring-2 focus-visible:ring-violet-400/40 focus-visible:ring-offset-2 rounded-sm",
   mockupShadow:
     "shadow-2xl shadow-indigo-900/20 ring-1 ring-white/10",
 }
