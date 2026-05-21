@@ -1,6 +1,5 @@
 import AuthLayout from '@/components/auth/AuthLayout';
-import LoginForm from '@/components/auth/LoginForm';
-
+import LoginModal from '@/components/auth/LoginModal';
 export const metadata = {
   title: 'Sign In - SkillSphere',
   description: 'Sign in to your SkillSphere account',
@@ -9,7 +8,7 @@ export const metadata = {
 export default function LoginPage() {
   return (
     <AuthLayout>
-      <LoginForm />
+      <LoginModal/>
     </AuthLayout>
   );
 }
