@@ -33,7 +33,7 @@ export default function CTABanner() {
               Start Free Trial
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-all duration-300 text-base">
+            <button className="border border-white/30 bg-white/10 backdrop-blur-xl text-white hover:bg-white hover:text-slate-900 transition-all duration-300 rounded-xl px-6 py-3 shadow-lg hover:scale-105">
               Schedule Demo
             </button>
           </div>

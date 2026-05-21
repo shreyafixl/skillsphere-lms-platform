@@ -54,3 +54,24 @@ export const featureItems = [
       "Award certificates and achievements to learners automatically.",
   },
 ]
+
+export const testimonialItems = [
+  {
+    quote:
+      "SkillSphere transformed the way our company trains employees.",
+    name: "Sarah Johnson",
+    role: "HR Manager",
+  },
+  {
+    quote:
+      "The AI assistant helped me learn faster and stay motivated.",
+    name: "David Lee",
+    role: "Software Engineer",
+  },
+  {
+    quote:
+      "Clean dashboard, excellent analytics, and super easy to use.",
+    name: "Emily Carter",
+    role: "Team Lead",
+  },
+]

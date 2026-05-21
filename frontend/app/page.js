@@ -5,7 +5,6 @@ import Link from "next/link"
 import {
   ArrowRight,
   Check,
-  Star,
   BarChart3,
   Users,
   TrendingUp,
@@ -13,7 +12,6 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import LoginModal from "@/components/auth/LoginModal"
 
@@ -22,6 +20,9 @@ import { toast } from "sonner"
 import {
   HeroStagger,
   HeroItem,
+  HeroHeading,
+  HeroHeadingLine,
+  HeroCTA,
   AnalyticsCard,
   FloatingCard,
   ScrollReveal,
@@ -30,8 +31,16 @@ import {
   FeatureCard,
   PricingCard,
   MotionCTA,
+  NavLink,
+  DashboardCard,
+  DashboardIcon,
+  TestimonialCard,
+  DashboardMockupWrap,
 } from "@/components/landing/motion"
-import { featureItems } from "@/components/landing/landing-data"
+import {
+  featureItems,
+  testimonialItems,
+} from "@/components/landing/landing-data"
 
 export default function Home() {
   const [open, setOpen] = useState(false)
@@ -60,7 +69,7 @@ export default function Home() {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-pink-300/30 rounded-full blur-3xl"></div>
 
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200/60 bg-white/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 w-full border-b border-white/60 bg-white/75 shadow-sm shadow-slate-900/[0.04] backdrop-blur-xl">
 
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
@@ -80,17 +89,9 @@ export default function Home() {
           {/* NAV LINKS */}
           <nav className="hidden md:flex items-center gap-8">
 
-            <Link href="#" className="text-sm font-medium text-slate-600 transition-colors hover:text-violet-600">
-              Features
-            </Link>
-
-            <Link href="#" className="text-sm font-medium text-slate-600 transition-colors hover:text-violet-600">
-              Pricing
-            </Link>
-
-            <Link href="#" className="text-sm font-medium text-slate-600 transition-colors hover:text-violet-600">
-              Contact
-            </Link>
+            <NavLink href="#">Features</NavLink>
+            <NavLink href="#">Pricing</NavLink>
+            <NavLink href="#">Contact</NavLink>
 
           </nav>
 
@@ -98,21 +99,23 @@ export default function Home() {
           <div className="flex items-center gap-3">
 
           <Button
-  variant="ghost"
-  size="sm"
-  onClick={() => setLoginOpen(true)}
-  className="text-slate-700 hover:bg-slate-100 hover:text-slate-900"
->
-  Sign In
-</Button>
+            variant="ghost"
+            size="sm"
+            onClick={() => setLoginOpen(true)}
+            className="text-slate-700 transition-all duration-300 ease-out hover:bg-slate-100 hover:text-slate-900"
+          >
+            Sign In
+          </Button>
 
-            <Button
-              size="sm"
-              className="bg-slate-900 hover:bg-slate-800"
-              onClick={() => setOpen(true)}
-            >
-              Get Started
-            </Button>
+            <MotionCTA variant="glow-violet">
+              <Button
+                size="sm"
+                className="bg-slate-900 transition-all duration-300 ease-out hover:bg-slate-800"
+                onClick={() => setOpen(true)}
+              >
+                Get Started
+              </Button>
+            </MotionCTA>
 
           </div>
 
@@ -135,15 +138,12 @@ export default function Home() {
         </div>
       </HeroItem>
 
-      <HeroItem>
-        <h1 className="text-5xl font-black leading-tight text-slate-900 md:text-6xl">
-          Transform Learning
-          <br />
-          <span className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
-            Empower Growth
-          </span>
-        </h1>
-      </HeroItem>
+      <HeroHeading className="text-5xl font-black leading-tight text-slate-900 md:text-6xl">
+        <HeroHeadingLine>Transform Learning</HeroHeadingLine>
+        <HeroHeadingLine className="bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent">
+          Empower Growth
+        </HeroHeadingLine>
+      </HeroHeading>
 
       <HeroItem>
         <p className="mt-6 max-w-xl text-lg text-slate-600">
@@ -154,25 +154,25 @@ export default function Home() {
 
       <HeroItem>
         <div className="mt-8 flex flex-wrap gap-4">
-          <MotionCTA variant="glow">
+          <HeroCTA variant="glow">
             <Button
               size="lg"
-              className="bg-orange-500 hover:bg-orange-600"
+              className="bg-orange-500 transition-all duration-300 ease-out hover:bg-orange-600"
               onClick={() => setOpen(true)}
             >
               Start Free Trial
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
             </Button>
-          </MotionCTA>
-          <MotionCTA variant="outline-glow">
+          </HeroCTA>
+          <HeroCTA variant="outline-glow">
             <Button
               size="lg"
               variant="outline"
-              className="border-slate-300 bg-white/80 text-slate-700 hover:bg-white hover:text-slate-900"
+              className="border-slate-300 bg-white/80 text-slate-700 transition-all duration-300 ease-out hover:border-violet-200 hover:bg-white hover:text-slate-900 hover:shadow-sm"
             >
               Watch Demo
             </Button>
-          </MotionCTA>
+          </HeroCTA>
         </div>
       </HeroItem>
 
@@ -195,7 +195,8 @@ export default function Home() {
     <div className="relative flex justify-center overflow-visible">
 
       {/* MAIN CARD */}
-      <AnalyticsCard className="relative z-10 min-h-[460px] w-full max-w-[650px] rounded-[32px] bg-[#071133] p-12 text-white shadow-2xl">
+      <DashboardMockupWrap className="relative z-10 w-full max-w-[650px]">
+      <AnalyticsCard className="min-h-[460px] w-full rounded-[32px] bg-[#071133] p-12 text-white">
 
         <h2 className="text-4xl font-bold mb-12">
           Learning Analytics
@@ -245,11 +246,12 @@ export default function Home() {
         </div>
 
       </AnalyticsCard>
+      </DashboardMockupWrap>
 
       {/* FLOATING CARD 1 */}
       <FloatingCard
         delay={0}
-        className="absolute -right-8 -top-10 z-20 w-64 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl"
+        className="absolute -right-8 -top-10 z-20 w-64 rounded-3xl border border-white/70 bg-white/85 p-6 shadow-xl shadow-violet-500/10 backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-violet-500/15"
       >
 
         <div className="flex justify-between items-center mb-4">
@@ -278,8 +280,8 @@ export default function Home() {
 
       {/* FLOATING CARD 2 */}
       <FloatingCard
-        delay={0.4}
-        className="absolute -bottom-10 -left-8 z-20 w-64 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl"
+        delay={0.35}
+        className="absolute -bottom-10 -left-8 z-20 w-64 rounded-3xl border border-white/70 bg-white/85 p-6 shadow-xl shadow-violet-500/10 backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-violet-500/15"
       >
 
         <div className="flex items-center gap-4 mb-5">
@@ -347,240 +349,147 @@ export default function Home() {
 
     </ScrollReveal>
 
-    <div className="grid md:grid-cols-2 gap-6">
+    <div className="grid gap-6 md:grid-cols-2">
 
-      {/* ADMIN */}
-      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
-
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-400 to-indigo-500"></div>
-
-        <CardContent className="p-6">
-
-          <div className="flex items-center gap-3 mb-5">
-
-            <div className="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center">
-              <BarChart3 className="h-5 w-5 text-purple-600" />
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900">
-                Admin Dashboard
-              </h3>
-
-              <p className="text-sm text-slate-600">
-                Organization insights
-              </p>
-            </div>
-
+      <DashboardCard
+        delay={0}
+        accentClassName="from-purple-400 to-indigo-500"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <DashboardIcon className="bg-purple-100">
+            <BarChart3 className="h-5 w-5 text-purple-600" />
+          </DashboardIcon>
+          <div>
+            <h3 className="font-semibold text-slate-900">Admin Dashboard</h3>
+            <p className="text-sm text-slate-600">Organization insights</p>
           </div>
-
-          <div className="space-y-4">
-
-            <div>
-
-              <div className="mb-1 flex justify-between text-sm text-slate-700">
-                <span>Total Learners</span>
-                <span className="font-medium text-slate-900">12.8K</span>
-              </div>
-
-              <div className="h-2 overflow-hidden rounded-full bg-slate-200">
-
-                <div
-                  className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500"
-                  style={{ width: "85%" }}
-                ></div>
-
-              </div>
-
+        </div>
+        <div className="space-y-4">
+          <div>
+            <div className="mb-1 flex justify-between text-sm text-slate-700">
+              <span>Total Learners</span>
+              <span className="font-medium text-slate-900">12.8K</span>
             </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Active Courses</span>
-              <span className="font-medium text-slate-900">48</span>
+            <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+              <div
+                className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500"
+                style={{ width: "85%" }}
+              />
             </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Completion</span>
-              <span className="font-medium text-slate-900">87%</span>
-            </div>
-
           </div>
-
-        </CardContent>
-
-      </Card>
-
-      {/* TRAINER */}
-      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
-
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-500"></div>
-
-        <CardContent className="p-6">
-
-          <div className="flex items-center gap-3 mb-5">
-
-            <div className="h-10 w-10 rounded-lg bg-orange-100 flex items-center justify-center">
-              <Users className="h-5 w-5 text-orange-600" />
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900">
-                Trainer Dashboard
-              </h3>
-
-              <p className="text-sm text-slate-600">
-                Course management
-              </p>
-            </div>
-
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Active Courses</span>
+            <span className="font-medium text-slate-900">48</span>
           </div>
-
-          <div className="space-y-4">
-
-            <div>
-
-              <div className="mb-1 flex justify-between text-sm text-slate-700">
-                <span>My Learners</span>
-                <span className="font-medium text-slate-900">342</span>
-              </div>
-
-              <div className="h-2 overflow-hidden rounded-full bg-slate-200">
-
-                <div
-                  className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
-                  style={{ width: "70%" }}
-                ></div>
-
-              </div>
-
-            </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Courses</span>
-              <span className="font-medium text-slate-900">12</span>
-            </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Rating</span>
-              <span className="font-medium text-slate-900">4.8★</span>
-            </div>
-
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Completion</span>
+            <span className="font-medium text-slate-900">87%</span>
           </div>
+        </div>
+      </DashboardCard>
 
-        </CardContent>
-
-      </Card>
-
-      {/* LEARNER */}
-      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
-
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-teal-500"></div>
-
-        <CardContent className="p-6">
-
-          <div className="flex items-center gap-3 mb-5">
-
-            <div className="h-10 w-10 rounded-lg bg-cyan-100 flex items-center justify-center">
-              <TrendingUp className="h-5 w-5 text-cyan-600" />
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900">
-                Learner Dashboard
-              </h3>
-
-              <p className="text-sm text-slate-600">
-                Learning journey
-              </p>
-            </div>
-
+      <DashboardCard
+        delay={0.08}
+        accentClassName="from-orange-400 to-amber-500"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <DashboardIcon className="bg-orange-100">
+            <Users className="h-5 w-5 text-orange-600" />
+          </DashboardIcon>
+          <div>
+            <h3 className="font-semibold text-slate-900">Trainer Dashboard</h3>
+            <p className="text-sm text-slate-600">Course management</p>
           </div>
-
-          <div className="space-y-4">
-
-            <div>
-
-              <div className="mb-1 flex justify-between text-sm text-slate-700">
-                <span>Progress</span>
-                <span className="font-medium text-slate-900">68%</span>
-              </div>
-
-              <div className="h-2 overflow-hidden rounded-full bg-slate-200">
-
-                <div
-                  className="h-full bg-gradient-to-r from-green-400 to-cyan-500"
-                  style={{ width: "68%" }}
-                ></div>
-
-              </div>
-
+        </div>
+        <div className="space-y-4">
+          <div>
+            <div className="mb-1 flex justify-between text-sm text-slate-700">
+              <span>My Learners</span>
+              <span className="font-medium text-slate-900">342</span>
             </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Enrolled</span>
-              <span className="font-medium text-slate-900">8</span>
+            <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+              <div
+                className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
+                style={{ width: "70%" }}
+              />
             </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Certificates</span>
-              <span className="font-medium text-slate-900">3</span>
-            </div>
-
           </div>
-
-        </CardContent>
-
-      </Card>
-
-      {/* AI */}
-      <Card className="relative overflow-hidden border border-slate-200/80 bg-white/90 text-slate-900 shadow-sm backdrop-blur-sm">
-
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-rose-500"></div>
-
-        <CardContent className="p-6">
-
-          <div className="flex items-center gap-3 mb-5">
-
-            <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center">
-              <Bot className="h-5 w-5 text-amber-600" />
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900">
-                AI Assistant
-              </h3>
-
-              <p className="text-sm text-slate-600">
-                Learning support
-              </p>
-            </div>
-
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Courses</span>
+            <span className="font-medium text-slate-900">12</span>
           </div>
-
-          <div className="space-y-4">
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Support</span>
-              <span className="font-medium text-slate-900">24/7</span>
-            </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Status</span>
-              <span className="font-medium text-green-600">
-                Active
-              </span>
-            </div>
-
-            <div className="flex justify-between text-sm text-slate-700">
-              <span>Recommendations</span>
-              <Check className="h-4 w-4 text-green-600" />
-            </div>
-
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Rating</span>
+            <span className="font-medium text-slate-900">4.8★</span>
           </div>
+        </div>
+      </DashboardCard>
 
-        </CardContent>
+      <DashboardCard
+        delay={0.16}
+        accentClassName="from-cyan-400 to-teal-500"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <DashboardIcon className="bg-cyan-100">
+            <TrendingUp className="h-5 w-5 text-cyan-600" />
+          </DashboardIcon>
+          <div>
+            <h3 className="font-semibold text-slate-900">Learner Dashboard</h3>
+            <p className="text-sm text-slate-600">Learning journey</p>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <div className="mb-1 flex justify-between text-sm text-slate-700">
+              <span>Progress</span>
+              <span className="font-medium text-slate-900">68%</span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+              <div
+                className="h-full bg-gradient-to-r from-green-400 to-cyan-500"
+                style={{ width: "68%" }}
+              />
+            </div>
+          </div>
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Enrolled</span>
+            <span className="font-medium text-slate-900">8</span>
+          </div>
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Certificates</span>
+            <span className="font-medium text-slate-900">3</span>
+          </div>
+        </div>
+      </DashboardCard>
 
-      </Card>
+      <DashboardCard
+        delay={0.24}
+        accentClassName="from-amber-400 to-rose-500"
+      >
+        <div className="mb-5 flex items-center gap-3">
+          <DashboardIcon className="bg-amber-100">
+            <Bot className="h-5 w-5 text-amber-600" />
+          </DashboardIcon>
+          <div>
+            <h3 className="font-semibold text-slate-900">AI Assistant</h3>
+            <p className="text-sm text-slate-600">Learning support</p>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Support</span>
+            <span className="font-medium text-slate-900">24/7</span>
+          </div>
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Status</span>
+            <span className="font-medium text-green-600">Active</span>
+          </div>
+          <div className="flex justify-between text-sm text-slate-700">
+            <span>Recommendations</span>
+            <Check className="h-4 w-4 text-green-600" />
+          </div>
+        </div>
+      </DashboardCard>
 
     </div>
 
@@ -636,79 +545,17 @@ export default function Home() {
 
     </ScrollReveal>
 
-    {/* TESTIMONIAL GRID */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-      {/* TESTIMONIAL 1 */}
-      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-xl">
-
-        <div className="text-4xl mb-4">
-          ⭐⭐⭐⭐⭐
-        </div>
-
-        <p className="text-slate-600 mb-6">
-          “SkillSphere transformed the way our company trains employees.”
-        </p>
-
-        <div>
-          <h4 className="text-lg font-bold text-slate-900">
-            Sarah Johnson
-          </h4>
-
-          <p className="text-sm text-slate-500">
-            HR Manager
-          </p>
-        </div>
-
-      </div>
-
-      {/* TESTIMONIAL 2 */}
-      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-xl">
-
-        <div className="text-4xl mb-4">
-          ⭐⭐⭐⭐⭐
-        </div>
-
-        <p className="text-slate-600 mb-6">
-          “The AI assistant helped me learn faster and stay motivated.”
-        </p>
-
-        <div>
-          <h4 className="text-lg font-bold text-slate-900">
-            David Lee
-          </h4>
-
-          <p className="text-sm text-slate-500">
-            Software Engineer
-          </p>
-        </div>
-
-      </div>
-
-      {/* TESTIMONIAL 3 */}
-      <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-xl">
-
-        <div className="text-4xl mb-4">
-          ⭐⭐⭐⭐⭐
-        </div>
-
-        <p className="text-slate-600 mb-6">
-          “Clean dashboard, excellent analytics, and super easy to use.”
-        </p>
-
-        <div>
-          <h4 className="text-lg font-bold text-slate-900">
-            Emily Carter
-          </h4>
-
-          <p className="text-sm text-slate-500">
-            Team Lead
-          </p>
-        </div>
-
-      </div>
-
-    </div>
+    <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {testimonialItems.map((item) => (
+        <StaggerItem key={item.name}>
+          <TestimonialCard
+            quote={item.quote}
+            name={item.name}
+            role={item.role}
+          />
+        </StaggerItem>
+      ))}
+    </StaggerContainer>
 
   </div>
 
@@ -735,7 +582,7 @@ export default function Home() {
 
       {/* BASIC PLAN */}
       <StaggerItem>
-      <PricingCard className="border border-slate-200/80 bg-white/90 p-7 shadow-lg backdrop-blur-xl">
+      <PricingCard>
         <h3 className="mb-4 text-2xl font-bold text-slate-900">
           Basic
         </h3>
@@ -755,8 +602,8 @@ export default function Home() {
 
         </ul>
 
-        <MotionCTA>
-          <button className="w-full rounded-xl bg-black py-3 font-semibold text-white transition-colors hover:bg-slate-800">
+        <MotionCTA variant="glow-violet" className="w-full">
+          <button className="w-full rounded-xl bg-slate-900 py-3 font-semibold text-white transition-all duration-300 ease-out hover:bg-slate-800">
             Choose Plan
           </button>
         </MotionCTA>
@@ -766,10 +613,7 @@ export default function Home() {
 
       {/* PRO PLAN */}
       <StaggerItem>
-      <PricingCard
-        featured
-        className="bg-gradient-to-br from-purple-600 to-violet-700 p-7 text-white"
-      >
+      <PricingCard featured>
 
         <div className="inline-block bg-white/20 px-4 py-1 rounded-full text-sm mb-4">
           Most Popular
@@ -795,8 +639,8 @@ export default function Home() {
 
         </ul>
 
-        <MotionCTA>
-          <button className="w-full rounded-xl bg-white py-3 font-semibold text-black transition-colors hover:bg-violet-50">
+        <MotionCTA variant="glow-light" className="w-full">
+          <button className="w-full rounded-xl bg-white py-3 font-semibold text-violet-700 transition-all duration-300 ease-out hover:bg-violet-50">
             Get Started
           </button>
         </MotionCTA>
@@ -806,7 +650,7 @@ export default function Home() {
 
       {/* ENTERPRISE PLAN */}
       <StaggerItem>
-      <PricingCard className="border border-slate-200/80 bg-white/90 p-7 shadow-lg backdrop-blur-xl">
+      <PricingCard>
 
         <h3 className="mb-4 text-2xl font-bold text-slate-900">
           Enterprise
@@ -828,8 +672,8 @@ export default function Home() {
 
         </ul>
 
-        <MotionCTA>
-          <button className="w-full rounded-xl bg-black py-3 font-semibold text-white transition-colors hover:bg-slate-800">
+        <MotionCTA variant="glow-violet" className="w-full">
+          <button className="w-full rounded-xl bg-slate-900 py-3 font-semibold text-white transition-all duration-300 ease-out hover:bg-slate-800">
             Contact Sales
           </button>
         </MotionCTA>
@@ -865,10 +709,10 @@ export default function Home() {
 
     <div className="mb-8 flex flex-wrap justify-center gap-4">
 
-      <MotionCTA variant="glow">
+      <MotionCTA variant="glow-light">
         <Button
           size="lg"
-          className="bg-white text-purple-700 shadow-lg shadow-white/20 hover:bg-purple-100"
+          className="bg-white text-purple-700 transition-all duration-300 ease-out hover:bg-violet-50"
           onClick={() => setOpen(true)}
         >
           Start Free Trial
@@ -879,7 +723,7 @@ export default function Home() {
         <Button
           size="lg"
           variant="outline"
-          className="border-white bg-white text-purple-700 hover:bg-purple-100"
+          className="border border-white/30 bg-white/10 backdrop-blur-xl text-white hover:bg-white hover:text-slate-900 transition-all duration-300 rounded-xl px-6 py-3 shadow-lg hover:scale-105"
         >
           Schedule Demo
         </Button>
