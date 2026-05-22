@@ -7,6 +7,7 @@ import EmployeeSidebar, { EmployeeSidebarNav, EmployeeSidebarProfile } from "./E
 import { useEmployeeState } from "./useEmployeeState"
 import { employeeCopy } from "./employee-data"
 import { employeeNotifications } from "@/components/dashboard/notifications/employee-notifications"
+import { dashboardProfiles } from "@/lib/dashboard-profiles"
 
 function EmployeeMain({ children, topbarTitle, setMobileOpen, employeeInfo }) {
   return (
@@ -15,8 +16,11 @@ function EmployeeMain({ children, topbarTitle, setMobileOpen, employeeInfo }) {
         title={topbarTitle}
         onMenuClick={() => setMobileOpen(true)}
         roleLabel={employeeCopy.roleLabel}
-        userRoleLabel={employeeCopy.roleLabel}
-        userName={employeeInfo.name}
+        profile={{
+          ...dashboardProfiles.employee,
+          name: employeeInfo.name,
+          avatar: employeeInfo.avatarInitials,
+        }}
         searchPlaceholder={employeeCopy.searchPlaceholder}
         notifications={employeeNotifications}
       />

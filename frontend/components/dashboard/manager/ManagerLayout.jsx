@@ -14,6 +14,7 @@ import ManagerSidebar, {
 import { useManagerState } from "./useManagerState"
 import { managerCopy } from "./manager-data"
 import { managerNotifications } from "@/components/dashboard/notifications/manager-notifications"
+import { dashboardProfiles } from "@/lib/dashboard-profiles"
 
 function ManagerMain({ children, topbarTitle, setMobileOpen, managerInfo }) {
   return (
@@ -22,8 +23,10 @@ function ManagerMain({ children, topbarTitle, setMobileOpen, managerInfo }) {
         title={topbarTitle}
         onMenuClick={() => setMobileOpen(true)}
         roleLabel={managerCopy.roleLabel}
-        userRoleLabel={managerCopy.roleLabel}
-        userName={managerInfo.admin}
+        profile={{
+          ...dashboardProfiles.manager,
+          name: managerInfo.admin,
+        }}
         searchPlaceholder={managerCopy.searchPlaceholder}
         notifications={managerNotifications}
       />

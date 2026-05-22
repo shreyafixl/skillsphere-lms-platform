@@ -14,6 +14,7 @@ import TenantAdminSidebar, {
 import { useTenantAdminState } from "./useTenantAdminState"
 import { tenantAdminCopy } from "./tenant-admin-data"
 import { tenantAdminNotifications } from "@/components/dashboard/notifications/tenant-admin-notifications"
+import { dashboardProfiles } from "@/lib/dashboard-profiles"
 
 function TenantAdminMain({ children, topbarTitle, setMobileOpen, tenantInfo }) {
   return (
@@ -22,8 +23,10 @@ function TenantAdminMain({ children, topbarTitle, setMobileOpen, tenantInfo }) {
         title={topbarTitle}
         onMenuClick={() => setMobileOpen(true)}
         roleLabel={tenantAdminCopy.roleLabel}
-        userRoleLabel={tenantAdminCopy.roleLabel}
-        userName={tenantInfo.admin}
+        profile={{
+          ...dashboardProfiles.tenantAdmin,
+          name: tenantInfo.admin,
+        }}
         searchPlaceholder={tenantAdminCopy.searchPlaceholder}
         notifications={tenantAdminNotifications}
       />

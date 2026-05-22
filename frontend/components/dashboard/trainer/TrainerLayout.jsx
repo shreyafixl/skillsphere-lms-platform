@@ -7,6 +7,7 @@ import TrainerSidebar, { TrainerSidebarNav, TrainerSidebarProfile } from "./Trai
 import { useTrainerState } from "./useTrainerState"
 import { trainerCopy } from "./trainer-data"
 import { trainerNotifications } from "@/components/dashboard/notifications/trainer-notifications"
+import { dashboardProfiles } from "@/lib/dashboard-profiles"
 
 function TrainerMain({ children, topbarTitle, setMobileOpen, trainerInfo }) {
   return (
@@ -15,8 +16,10 @@ function TrainerMain({ children, topbarTitle, setMobileOpen, trainerInfo }) {
         title={topbarTitle}
         onMenuClick={() => setMobileOpen(true)}
         roleLabel={trainerCopy.roleLabel}
-        userRoleLabel={trainerCopy.roleLabel}
-        userName={trainerInfo.admin}
+        profile={{
+          ...dashboardProfiles.trainer,
+          name: trainerInfo.admin,
+        }}
         searchPlaceholder={trainerCopy.searchPlaceholder}
         notifications={trainerNotifications}
       />

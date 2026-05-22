@@ -3,16 +3,40 @@
 import { Menu, Search } from "lucide-react"
 import ThemeToggle from "./ThemeToggle"
 import NotificationDropdown from "./NotificationDropdown"
+import ProfileDropdown from "./ProfileDropdown"
 
+/**
+ * Shared dashboard topbar. Profile menu uses {@link ProfileDropdown} — pass
+ * `profile` or `name` / `email` / `role` / `avatar` (mock data per dashboard).
+ */
 export default function Topbar({
   onMenuClick,
   title = "Dashboard",
   roleLabel = "Super Admin",
   searchPlaceholder = "Search tenants, users, courses...",
-  userName = "Admin User",
-  userRoleLabel = "Super Admin",
+  profile,
+  name,
+  email,
+  role,
+  avatar,
+  settingsHref,
   notifications,
+  /** @deprecated Pass via `profile` or `name` / `role` / `email` / `avatar` */
+  userName,
+  /** @deprecated */
+  userRoleLabel,
+  /** @deprecated */
+  userEmail,
+  /** @deprecated */
+  avatarInitials,
 }) {
+  const profileProps = profile ?? {
+    name: name ?? userName,
+    email: email ?? userEmail,
+    role: role ?? userRoleLabel ?? roleLabel,
+    avatar: avatar ?? avatarInitials,
+  }
+
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/70 px-4 py-3 backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 dark:border-slate-800/60 dark:bg-slate-900/70 sm:px-6 sm:py-4">
       <div className="flex items-center justify-between gap-4">
@@ -53,18 +77,8 @@ export default function Topbar({
 
           <NotificationDropdown notifications={notifications} />
 
-          <div className="hidden items-center gap-3 border-l border-slate-200 pl-3 dark:border-slate-700 sm:flex">
-            <div className="text-right">
-              <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-                {userName}
-              </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                {userRoleLabel}
-              </p>
-            </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-600 text-sm font-bold text-white shadow-md shadow-violet-500/20">
-              A
-            </div>
+          <div className="border-l border-slate-200 pl-2 dark:border-slate-700 sm:pl-3">
+            <ProfileDropdown {...profileProps} settingsHref={settingsHref} />
           </div>
         </div>
       </div>

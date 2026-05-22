@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Sidebar, { SidebarNav, SidebarProfile } from "./sidebar"
 import Topbar from "./topbar"
+import { dashboardProfiles } from "@/lib/dashboard-profiles"
 import {
   Sheet,
   SheetContent,
@@ -51,6 +52,8 @@ export default function DashboardLayout({
         <Topbar
           title={topbarTitle}
           onMenuClick={() => setMobileOpen(true)}
+          profile={dashboardProfiles.superadmin}
+          roleLabel={dashboardProfiles.superadmin.role}
         />
         <main className="flex-1 space-y-6 overflow-x-hidden p-4 transition-colors duration-300 sm:space-y-8 sm:p-6 lg:p-8">
           {children}
