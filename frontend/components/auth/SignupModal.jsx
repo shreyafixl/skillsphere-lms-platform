@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import SelectedPlanBadge from "@/components/landing/SelectedPlanBadge"
 import { signupRoles } from "@/lib/signup-roles"
 
 const contentVariants = {
@@ -20,6 +21,7 @@ export default function SignupModal({
   variant = "modal",
   onClose,
   onSwitchToLogin,
+  selectedPlan = null,
 }) {
   const isModal = variant === "modal"
 
@@ -60,7 +62,11 @@ export default function SignupModal({
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-      toast.success("Account created successfully!")
+      toast.success(
+        selectedPlan
+          ? `Welcome! Your ${selectedPlan === "pro" ? "Pro" : "Basic"} plan workspace is ready.`
+          : "Account created successfully!"
+      )
       if (isModal && onClose) onClose()
     }, 1200)
   }
@@ -97,6 +103,8 @@ export default function SignupModal({
         <p className="mb-6 text-slate-600 dark:text-slate-400">
           Build smarter learning experiences for your team
         </p>
+
+        {selectedPlan && <SelectedPlanBadge planId={selectedPlan} />}
 
         <div className="space-y-4">
           <div>

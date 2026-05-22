@@ -17,6 +17,7 @@ export default function AuthModals({
   onClose,
   switchToLogin,
   switchToSignup,
+  selectedPlan = null,
 }) {
   const isOpen = activeModal === "login" || activeModal === "signup"
 
@@ -50,6 +51,7 @@ export default function AuthModals({
               variant="modal"
               onClose={onClose}
               onSwitchToLogin={switchToLogin}
+              selectedPlan={selectedPlan}
             />
           </motion.div>
         )}

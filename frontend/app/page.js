@@ -13,6 +13,8 @@ import {
 
 import { Button } from "@/components/ui/button"
 import AuthModals from "@/components/auth/AuthModals"
+import ContactSalesModal from "@/components/landing/ContactSalesModal"
+import WatchDemoModal from "@/components/landing/WatchDemoModal"
 import { useAuthModals } from "@/hooks/useAuthModals"
 import {
   HeroStagger,
@@ -42,13 +44,17 @@ import {
 export default function Home() {
   const {
     activeModal,
+    selectedPlan,
     openLogin,
     openSignup,
+    openSignupWithPlan,
     closeModal,
     switchToLogin,
     switchToSignup,
   } = useAuthModals()
   const [scrolled, setScrolled] = useState(false)
+  const [contactSalesOpen, setContactSalesOpen] = useState(false)
+  const [demoOpen, setDemoOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -171,8 +177,10 @@ export default function Home() {
           </HeroCTA>
           <HeroCTA variant="outline-glow">
             <Button
+              type="button"
               size="lg"
               variant="outline"
+              onClick={() => setDemoOpen(true)}
               className="border-slate-300 bg-white/80 text-slate-700 transition-all duration-300 ease-out hover:border-violet-200 hover:bg-white hover:text-slate-900 hover:shadow-sm"
             >
               Watch Demo
@@ -608,7 +616,11 @@ export default function Home() {
         </ul>
 
         <MotionCTA variant="glow-violet" className="w-full">
-          <button className="w-full rounded-xl bg-slate-900 py-3 font-semibold text-white transition-all duration-300 ease-out hover:bg-slate-800">
+          <button
+            type="button"
+            onClick={() => openSignupWithPlan("basic")}
+            className="w-full rounded-xl bg-slate-900 py-3 font-semibold text-white transition-all duration-300 ease-out hover:bg-slate-800"
+          >
             Choose Plan
           </button>
         </MotionCTA>
@@ -645,7 +657,11 @@ export default function Home() {
         </ul>
 
         <MotionCTA variant="glow-light" className="w-full">
-          <button className="w-full rounded-xl bg-white py-3 font-semibold text-violet-700 transition-all duration-300 ease-out hover:bg-violet-50">
+          <button
+            type="button"
+            onClick={() => openSignupWithPlan("pro")}
+            className="w-full rounded-xl bg-white py-3 font-semibold text-violet-700 transition-all duration-300 ease-out hover:bg-violet-50"
+          >
             Get Started
           </button>
         </MotionCTA>
@@ -678,7 +694,11 @@ export default function Home() {
         </ul>
 
         <MotionCTA variant="glow-violet" className="w-full">
-          <button className="w-full rounded-xl bg-slate-900 py-3 font-semibold text-white transition-all duration-300 ease-out hover:bg-slate-800">
+          <button
+            type="button"
+            onClick={() => setContactSalesOpen(true)}
+            className="w-full rounded-xl bg-slate-900 py-3 font-semibold text-white transition-all duration-300 ease-out hover:bg-slate-800"
+          >
             Contact Sales
           </button>
         </MotionCTA>
@@ -866,9 +886,21 @@ export default function Home() {
 
       <AuthModals
         activeModal={activeModal}
+        selectedPlan={selectedPlan}
         onClose={closeModal}
         switchToLogin={switchToLogin}
         switchToSignup={switchToSignup}
+      />
+
+      <ContactSalesModal
+        open={contactSalesOpen}
+        onClose={() => setContactSalesOpen(false)}
+      />
+
+      <WatchDemoModal
+        open={demoOpen}
+        onClose={() => setDemoOpen(false)}
+        onGetStarted={openSignup}
       />
 </div>
   )
