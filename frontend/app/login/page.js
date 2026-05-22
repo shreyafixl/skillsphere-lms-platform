@@ -1,14 +1,18 @@
-import AuthLayout from '@/components/auth/AuthLayout';
-import LoginModal from '@/components/auth/LoginModal';
-export const metadata = {
-  title: 'Sign In - SkillSphere',
-  description: 'Sign in to your SkillSphere account',
-};
+"use client"
+
+import { useRouter } from "next/navigation"
+import AuthLayout from "@/components/auth/AuthLayout"
+import LoginModal from "@/components/auth/LoginModal"
 
 export default function LoginPage() {
+  const router = useRouter()
+
   return (
     <AuthLayout>
-      <LoginModal/>
+      <LoginModal
+        variant="inline"
+        onSwitchToSignup={() => router.push("/signup")}
+      />
     </AuthLayout>
-  );
+  )
 }

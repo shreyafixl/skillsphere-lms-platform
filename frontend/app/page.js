@@ -12,11 +12,8 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import LoginModal from "@/components/auth/LoginModal"
-
-import { Eye, EyeOff } from "lucide-react"
-import { toast } from "sonner"
+import AuthModals from "@/components/auth/AuthModals"
+import { useAuthModals } from "@/hooks/useAuthModals"
 import {
   HeroStagger,
   HeroItem,
@@ -43,23 +40,14 @@ import {
 } from "@/components/landing/landing-data"
 
 export default function Home() {
-  const [open, setOpen] = useState(false)
-  const [loginOpen, setLoginOpen] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
-
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState(false)
-  
-  const [loading, setLoading] = useState(false)
-  
-  const [errors, setErrors] = useState({})
-  
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] =
-    useState("")
-  const [role, setRole] = useState("")
+  const {
+    activeModal,
+    openLogin,
+    openSignup,
+    closeModal,
+    switchToLogin,
+    switchToSignup,
+  } = useAuthModals()
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -115,7 +103,7 @@ export default function Home() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setLoginOpen(true)}
+            onClick={openLogin}
             className="text-slate-700 transition-all duration-300 ease-out hover:bg-slate-100 hover:text-slate-900"
           >
             Sign In
@@ -125,7 +113,7 @@ export default function Home() {
               <Button
                 size="sm"
                 className="bg-slate-900 transition-all duration-300 ease-out hover:bg-slate-800"
-                onClick={() => setOpen(true)}
+                onClick={openSignup}
               >
                 Get Started
               </Button>
@@ -175,7 +163,7 @@ export default function Home() {
             <Button
               size="lg"
               className="bg-orange-500 transition-all duration-300 ease-out hover:bg-orange-600"
-              onClick={() => setOpen(true)}
+              onClick={openSignup}
             >
               Start Free Trial
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
@@ -730,7 +718,7 @@ export default function Home() {
         <Button
           size="lg"
           className="bg-white text-purple-700 transition-all duration-300 ease-out hover:bg-violet-50"
-          onClick={() => setOpen(true)}
+          onClick={openSignup}
         >
           Start Free Trial
         </Button>
@@ -875,311 +863,13 @@ export default function Home() {
 
 </footer>  
 
-      
-       {/* MODAL */}
-{open && (
 
-<div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-
-  <div className="relative w-full max-w-md rounded-3xl bg-white p-8 text-slate-900 shadow-2xl">
-
-    <button
-      onClick={() => setOpen(false)}
-      className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
-    >
-      ✕
-    </button>
-
-    <h1 className="mb-2 text-3xl font-bold text-slate-900">
-      Create Workspace 🚀
-    </h1>
-
-    <p className="mb-6 text-slate-600">
-      Build smarter learning experiences for your team
-    </p>
-
-    {/* INPUTS */}
-    <div className="space-y-4">
-
-      {/* FULL NAME */}
-      <div>
-        <Input
-          type="text"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="h-12 rounded-xl"
-        />
-
-        {errors.name && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.name}
-          </p>
-        )}
-      </div>
-
-      {/* EMAIL */}
-      <div>
-        <Input
-          type="email"
-          placeholder="Work Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="h-12 rounded-xl"
-        />
-
-        {errors.email && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.email}
-          </p>
-        )}
-      </div>
-
-      {/* COMPANY */}
-      <Input
-        type="text"
-        placeholder="Company Name"
-        className="h-12 rounded-xl"
+      <AuthModals
+        activeModal={activeModal}
+        onClose={closeModal}
+        switchToLogin={switchToLogin}
+        switchToSignup={switchToSignup}
       />
-
-      {/* ROLE */}
-      <div>
-
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="w-full h-12 rounded-xl border border-gray-300 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-violet-500"
-        >
-
-          <option value="">
-            Select Role
-          </option>
-
-          <option value="superadmin">
-            Super Admin
-          </option>
-
-          <option value="tenantadmin">
-            Tenant Admin
-          </option>
-
-          <option value="manager">
-            Manager
-          </option>
-
-          <option value="trainer">
-            Trainer
-          </option>
-
-          <option value="employee">
-            Employee
-          </option>
-
-        </select>
-
-        {errors.role && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.role}
-          </p>
-        )}
-
-      </div>
-
-      {/* PASSWORD */}
-      <div>
-
-        <div className="relative">
-
-          <Input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-            className="h-12 rounded-xl pr-12"
-          />
-
-          <button
-            type="button"
-            onClick={() =>
-              setShowPassword(!showPassword)
-            }
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-          >
-            {showPassword ? (
-              <EyeOff size={20} />
-            ) : (
-              <Eye size={20} />
-            )}
-          </button>
-
-        </div>
-
-        {errors.password && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.password}
-          </p>
-        )}
-
-      </div>
-
-      {/* CONFIRM PASSWORD */}
-      <div>
-
-        <div className="relative">
-
-          <Input
-            type={
-              showConfirmPassword
-                ? "text"
-                : "password"
-            }
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(
-                e.target.value
-              )
-            }
-            className="h-12 rounded-xl pr-12"
-          />
-
-          <button
-            type="button"
-            onClick={() =>
-              setShowConfirmPassword(
-                !showConfirmPassword
-              )
-            }
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-          >
-            {showConfirmPassword ? (
-              <EyeOff size={20} />
-            ) : (
-              <Eye size={20} />
-            )}
-          </button>
-
-        </div>
-
-        {errors.confirmPassword && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.confirmPassword}
-          </p>
-        )}
-
-      </div>
-
-    </div>
-
-    {/* TERMS */}
-    <div className="flex items-center gap-2 text-sm text-slate-600 mt-4">
-      <input type="checkbox" />
-      <p>I agree to Terms & Privacy Policy</p>
-    </div>
-
-    {/* GOOGLE BUTTON */}
-    <Button
-      variant="outline"
-      className="w-full h-12 rounded-xl mt-6"
-    >
-      Continue with Google
-    </Button>
-
-    {/* MAIN BUTTON */}
-    <Button
-      disabled={loading}
-      onClick={() => {
-
-        let newErrors = {}
-
-        if (!name) {
-          newErrors.name =
-            "Full name is required"
-        }
-
-        if (!email) {
-          newErrors.email =
-            "Email is required"
-        }
-
-        if (!role) {
-          newErrors.role =
-            "Please select a role"
-        }
-
-        if (!password) {
-          newErrors.password =
-            "Password is required"
-        } else if (password.length < 8) {
-          newErrors.password =
-            "Password must be at least 8 characters"
-        }
-
-        if (!confirmPassword) {
-          newErrors.confirmPassword =
-            "Please confirm your password"
-        }
-
-        if (
-          password !== confirmPassword
-        ) {
-          newErrors.confirmPassword =
-            "Passwords do not match"
-        }
-
-        setErrors(newErrors)
-
-        if (
-          Object.keys(newErrors).length > 0
-        ) {
-
-          toast.error(
-            "Please fix the form errors"
-          )
-
-          return
-        }
-
-        setLoading(true)
-
-        setTimeout(() => {
-
-          setLoading(false)
-
-          toast.success(
-            "Account created successfully!"
-          )
-
-        }, 2000)
-
-      }}
-      className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:scale-[1.02] transition-all duration-300 shadow-lg text-white font-semibold mt-6"
-    >
-      {loading
-        ? "Creating Account..."
-        : "Create Account"}
-    </Button>
-
-    {/* FOOTER */}
-    <p className="text-center text-sm text-slate-600 mt-5">
-      Already have an account?{" "}
-      <span className="text-violet-600 font-medium cursor-pointer hover:underline">
-        Sign In
-      </span>
-    </p>
-
-  </div>
-
-</div>
-
-)}
-
-<LoginModal
-open={loginOpen}
-setOpen={setLoginOpen}
-/>
 </div>
   )
 }
