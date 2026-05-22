@@ -1,71 +1,30 @@
 "use client"
 
-import { useState } from "react"
-import Topbar from "@/components/dashboard/topbar"
-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
-import EmployeeSidebar, { EmployeeSidebarNav, EmployeeSidebarProfile } from "./EmployeeSidebar"
+import DashboardLayout from "@/components/dashboard/DashboardLayout"
+
 import { useEmployeeState } from "./useEmployeeState"
-import { employeeCopy } from "./employee-data"
-import { employeeNotifications } from "@/components/dashboard/notifications/employee-notifications"
-import { dashboardProfiles } from "@/lib/dashboard-profiles"
 
-function EmployeeMain({ children, topbarTitle, setMobileOpen, employeeInfo }) {
-  return (
-    <div className="flex min-h-screen min-w-0 flex-1 flex-col">
-      <Topbar
-        title={topbarTitle}
-        onMenuClick={() => setMobileOpen(true)}
-        roleLabel={employeeCopy.roleLabel}
-        profile={{
-          ...dashboardProfiles.employee,
-          name: employeeInfo.name,
-          avatar: employeeInfo.avatarInitials,
-        }}
-        searchPlaceholder={employeeCopy.searchPlaceholder}
-        notifications={employeeNotifications}
-      />
-      <main className="flex-1 space-y-6 overflow-x-hidden p-4 transition-colors duration-300 sm:space-y-8 sm:p-6 lg:p-8">
-        {children}
-      </main>
-    </div>
-  )
-}
-
-export default function EmployeeLayout({ children, topbarTitle = "Dashboard" }) {
-  const [mobileOpen, setMobileOpen] = useState(false)
+export default function EmployeeLayout({
+  children,
+  topbarTitle = "Dashboard",
+}) {
   const state = useEmployeeState()
-  const content = typeof children === "function" ? children(state) : children
+
+  const content =
+    typeof children === "function"
+      ? children(state)
+      : children
 
   return (
     <>
-      <div className="flex min-h-screen w-full bg-slate-50/80 transition-colors duration-300 dark:bg-slate-950">
-        <EmployeeSidebar className="hidden lg:flex" employeeInfo={state.employeeInfo} />
-        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetContent
-            side="left"
-            className="flex h-full w-72 flex-col border-none border-r border-white/5 bg-slate-950 p-0 text-white sm:max-w-xs"
-            showCloseButton
-          >
-            <SheetTitle className="sr-only">Navigation menu</SheetTitle>
-            <div className="flex h-full flex-col p-5">
-              <div className="mb-8 flex shrink-0 items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-lg font-bold">S</div>
-                <div>
-                  <p className="font-bold">SkillSphere</p>
-                  <p className="text-xs text-slate-500">My Learning</p>
-                </div>
-              </div>
-              <EmployeeSidebarNav onNavigate={() => setMobileOpen(false)} className="min-h-0 flex-1 overflow-y-auto" />
-              <div className="shrink-0 pt-4">
-                <EmployeeSidebarProfile employeeInfo={state.employeeInfo} />
-              </div>
-            </div>
-          </SheetContent>
-        </Sheet>
-        <EmployeeMain topbarTitle={topbarTitle} setMobileOpen={setMobileOpen} employeeInfo={state.employeeInfo}>
-          {content}
-        </EmployeeMain>
-      </div>
+      <DashboardLayout
+        topbarTitle={topbarTitle}
+        role="employee"
+        enterprise
+      >
+        {content}
+      </DashboardLayout>
+
       {state.modals}
     </>
   )

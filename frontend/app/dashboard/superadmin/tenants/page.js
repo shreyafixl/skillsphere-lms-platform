@@ -101,109 +101,206 @@ export default function TenantsPage() {
 
   return (
     <DashboardLayout topbarTitle="Tenants">
-      <div className="space-y-6 sm:space-y-8">
+      <div className="space-y-5">
         <PageHeader
           title="Tenant Management"
           description="Manage organizations, onboarding pipelines, and subscription plans across the platform."
           action={
             <PrimaryActionButton onClick={() => setCreateOpen(true)}>
-              <Plus size={18} />
+              <Plus size={16} />
               Add Tenant
             </PrimaryActionButton>
           }
         />
-
+  
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {onboardingStats.map((stat) => (
-            <StatsCard key={stat.title} {...stat} />
+            <StatsCard
+              key={stat.title}
+              {...stat}
+              compact
+              enterprise
+            />
           ))}
         </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+  
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {tenantCards.map((tenant) => (
             <DashboardCard
               key={tenant.name}
               role="button"
               tabIndex={0}
-              onClick={() => openView({ company: tenant.name, plan: tenant.plan, users: tenant.users, domain: `${tenant.name.toLowerCase().replace(/\s/g, "")}.skillsphere.io`, joined: "2025", status: tenant.status })}
-              onKeyDown={(e) => e.key === "Enter" && openView({ company: tenant.name, plan: tenant.plan, users: tenant.users, domain: `${tenant.name.toLowerCase().replace(/\s/g, "")}.skillsphere.io`, joined: "2025", status: tenant.status })}
-              className="group cursor-pointer transition-all hover:-translate-y-0.5 hover:border-violet-200 dark:hover:border-violet-500/30"
+              onClick={() =>
+                openView({
+                  company: tenant.name,
+                  plan: tenant.plan,
+                  users: tenant.users,
+                  domain: `${tenant.name
+                    .toLowerCase()
+                    .replace(/\s/g, "")}.skillsphere.io`,
+                  joined: "2025",
+                  status: tenant.status,
+                })
+              }
+              onKeyDown={(e) =>
+                e.key === "Enter" &&
+                openView({
+                  company: tenant.name,
+                  plan: tenant.plan,
+                  users: tenant.users,
+                  domain: `${tenant.name
+                    .toLowerCase()
+                    .replace(/\s/g, "")}.skillsphere.io`,
+                  joined: "2025",
+                  status: tenant.status,
+                })
+              }
+              className="group cursor-pointer rounded-2xl border border-slate-200/80 p-4 transition-all hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-sm dark:border-slate-800/80 dark:hover:border-violet-500/30"
             >
               <div className="flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-sm">
-                  <Building2 size={20} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-sm">
+                  <Building2 size={18} />
                 </div>
+  
                 <span
                   className={cn(
-                    "rounded-full px-2.5 py-1 text-xs font-semibold capitalize ring-1 ring-inset",
+                    "rounded-full px-2 py-1 text-[11px] font-semibold capitalize ring-1 ring-inset",
                     statusStyles[tenant.status]
                   )}
                 >
                   {tenant.status}
                 </span>
               </div>
-              <h3 className="mt-4 font-semibold text-slate-900 dark:text-slate-100">
+  
+              <h3 className="mt-3 text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {tenant.name}
               </h3>
-              <span className={cn("mt-1 inline-flex rounded-lg px-2 py-0.5 text-xs font-semibold", planStyles[tenant.plan])}>
+  
+              <span
+                className={cn(
+                  "mt-1 inline-flex rounded-lg px-2 py-0.5 text-[11px] font-semibold",
+                  planStyles[tenant.plan]
+                )}
+              >
                 {tenant.plan}
               </span>
-              <div className="mt-4 flex gap-4 text-sm text-slate-500 dark:text-slate-400">
+  
+              <div className="mt-3 flex gap-3 text-xs text-slate-500 dark:text-slate-400">
                 <span>{tenant.users} users</span>
                 <span>{tenant.courses} courses</span>
               </div>
             </DashboardCard>
           ))}
         </div>
-
+  
         <DashboardCard>
-          <SectionHeader title="All Tenants" subtitle="Complete list of platform organizations" />
+          <SectionHeader
+            title="All Tenants"
+            subtitle="Complete list of platform organizations"
+          />
+  
           <div className="-mx-2 overflow-x-auto">
             <table className="w-full min-w-[720px] border-collapse">
               <thead>
                 <tr className="border-b border-slate-100 dark:border-slate-800">
-                  {["Company", "Domain", "Users", "Plan", "Status", "Joined", "Actions"].map((col) => (
-                    <th key={col} className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  {[
+                    "Company",
+                    "Domain",
+                    "Users",
+                    "Plan",
+                    "Status",
+                    "Joined",
+                    "Actions",
+                  ].map((col) => (
+                    <th
+                      key={col}
+                      className="px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500"
+                    >
                       {col}
                     </th>
                   ))}
                 </tr>
               </thead>
+  
               <tbody>
                 {tenants.map((tenant) => (
                   <tr
                     key={tenant.id}
                     className="group border-b border-slate-50 transition-colors last:border-0 hover:bg-violet-50/40 dark:border-slate-800/50 dark:hover:bg-violet-500/10"
                   >
-                    <td className="px-3 py-4">
+                    <td className="px-3 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white">
-                          <Building2 size={16} />
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white">
+                          <Building2 size={15} />
                         </div>
-                        <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{tenant.company}</span>
+  
+                        <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                          {tenant.company}
+                        </span>
                       </div>
                     </td>
-                    <td className="px-3 py-4 text-sm text-slate-500 dark:text-slate-400">{tenant.domain}</td>
-                    <td className="px-3 py-4 text-sm text-slate-600 dark:text-slate-300">{tenant.users.toLocaleString()}</td>
-                    <td className="px-3 py-4">
-                      <span className={cn("rounded-lg px-2.5 py-1 text-xs font-semibold", planStyles[tenant.plan])}>{tenant.plan}</span>
+  
+                    <td className="px-3 py-3 text-sm text-slate-500 dark:text-slate-400">
+                      {tenant.domain}
                     </td>
-                    <td className="px-3 py-4">
-                      <span className={cn("rounded-full px-2.5 py-1 text-xs font-semibold capitalize ring-1 ring-inset", statusStyles[tenant.status])}>
+  
+                    <td className="px-3 py-3 text-sm text-slate-600 dark:text-slate-300">
+                      {tenant.users.toLocaleString()}
+                    </td>
+  
+                    <td className="px-3 py-3">
+                      <span
+                        className={cn(
+                          "rounded-lg px-2 py-1 text-[11px] font-semibold",
+                          planStyles[tenant.plan]
+                        )}
+                      >
+                        {tenant.plan}
+                      </span>
+                    </td>
+  
+                    <td className="px-3 py-3">
+                      <span
+                        className={cn(
+                          "rounded-full px-2 py-1 text-[11px] font-semibold capitalize ring-1 ring-inset",
+                          statusStyles[tenant.status]
+                        )}
+                      >
                         {tenant.status}
                       </span>
                     </td>
-                    <td className="px-3 py-4 text-sm text-slate-500 dark:text-slate-400">{tenant.joined}</td>
-                    <td className="px-3 py-4">
+  
+                    <td className="px-3 py-3 text-sm text-slate-500 dark:text-slate-400">
+                      {tenant.joined}
+                    </td>
+  
+                    <td className="px-3 py-3">
                       <div className="flex gap-1 opacity-70 group-hover:opacity-100">
-                        <button type="button" onClick={() => openView(tenant)} className="rounded-lg p-2 text-slate-500 hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400" aria-label="View">
-                          <Eye size={16} />
+                        <button
+                          type="button"
+                          onClick={() => openView(tenant)}
+                          className="rounded-lg p-1.5 text-slate-500 hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
+                          aria-label="View"
+                        >
+                          <Eye size={15} />
                         </button>
-                        <button type="button" onClick={() => openEdit(tenant)} className="rounded-lg p-2 text-slate-500 hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400" aria-label="Edit">
-                          <Pencil size={16} />
+  
+                        <button
+                          type="button"
+                          onClick={() => openEdit(tenant)}
+                          className="rounded-lg p-1.5 text-slate-500 hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
+                          aria-label="Edit"
+                        >
+                          <Pencil size={15} />
                         </button>
-                        <button type="button" onClick={() => openEdit(tenant)} className="rounded-lg p-2 text-slate-500 hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400" aria-label="More">
-                          <MoreHorizontal size={16} />
+  
+                        <button
+                          type="button"
+                          onClick={() => openEdit(tenant)}
+                          className="rounded-lg p-1.5 text-slate-500 hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
+                          aria-label="More"
+                        >
+                          <MoreHorizontal size={15} />
                         </button>
                       </div>
                     </td>
@@ -214,9 +311,20 @@ export default function TenantsPage() {
           </div>
         </DashboardCard>
       </div>
-
-      <TenantFormModal open={createOpen} onOpenChange={setCreateOpen} mode="create" />
-      <TenantFormModal open={editOpen} onOpenChange={setEditOpen} mode="edit" initialData={selectedTenant} />
+  
+      <TenantFormModal
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        mode="create"
+      />
+  
+      <TenantFormModal
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        mode="edit"
+        initialData={selectedTenant}
+      />
+  
       <ViewTenantModal
         open={viewOpen}
         onOpenChange={setViewOpen}

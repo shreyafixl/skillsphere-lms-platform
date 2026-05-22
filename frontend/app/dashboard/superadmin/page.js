@@ -1,15 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import {
-  BookOpen,
-  Building2,
-  DollarSign,
-  Users,
-} from "lucide-react"
 import DashboardLayout from "@/components/dashboard/DashboardLayout"
 import StatsCard from "@/components/dashboard/StatsCard"
 import AnalyticsChart from "@/components/dashboard/AnalyticsChart"
+import DashboardBarChart from "@/components/dashboard/DashboardBarChart"
 import RecentTenantsTable from "@/components/dashboard/RecentTenantsTable"
 import RecentActivityPanel from "@/components/dashboard/RecentActivityPanel"
 import QuickActions from "@/components/dashboard/QuickActions"
@@ -21,37 +16,52 @@ const stats = [
     value: "24,583",
     growth: "+12.5%",
     trend: "up",
-    icon: <Users size={24} />,
-    iconBg: "bg-blue-50 dark:bg-blue-500/15",
-    iconColor: "text-blue-600 dark:text-blue-400",
+    sparkline: [55, 72, 48, 80, 65, 88, 76],
+    href: "/dashboard/superadmin/users",
   },
   {
     title: "Active Tenants",
     value: "186",
     growth: "+8.2%",
     trend: "up",
-    icon: <Building2 size={24} />,
-    iconBg: "bg-violet-50 dark:bg-violet-500/15",
-    iconColor: "text-violet-600 dark:text-violet-400",
+    sparkline: [40, 52, 45, 60, 58, 70, 68],
+    href: "/dashboard/superadmin/tenants",
   },
   {
-    title: "Total Courses",
-    value: "1,429",
-    growth: "+15.3%",
-    trend: "up",
-    icon: <BookOpen size={24} />,
-    iconBg: "bg-fuchsia-50 dark:bg-fuchsia-500/15",
-    iconColor: "text-fuchsia-600 dark:text-fuchsia-400",
-  },
-  {
-    title: "Revenue",
+    title: "Monthly Revenue",
     value: "$842K",
     growth: "+22.1%",
     trend: "up",
-    icon: <DollarSign size={24} />,
-    iconBg: "bg-emerald-50 dark:bg-emerald-500/15",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
+    visual: "ring",
+    sparkline: [78],
+    href: "/dashboard/superadmin/analytics",
   },
+]
+
+const subscriptionData = [
+  { label: "Jan", basic: 42, pro: 28, enterprise: 12 },
+  { label: "Feb", basic: 48, pro: 32, enterprise: 14 },
+  { label: "Mar", basic: 45, pro: 35, enterprise: 15 },
+  { label: "Apr", basic: 52, pro: 38, enterprise: 18 },
+  { label: "May", basic: 50, pro: 40, enterprise: 17 },
+  { label: "Jun", basic: 58, pro: 44, enterprise: 20 },
+]
+
+const registrationData = [
+  { label: "Mon", count: 24 },
+  { label: "Tue", count: 32 },
+  { label: "Wed", count: 28 },
+  { label: "Thu", count: 40 },
+  { label: "Fri", count: 36 },
+  { label: "Sat", count: 18 },
+  { label: "Sun", count: 22 },
+]
+
+const activeUsersData = [
+  { label: "W1", learners: 420, trainers: 48 },
+  { label: "W2", learners: 480, trainers: 52 },
+  { label: "W3", learners: 510, trainers: 55 },
+  { label: "W4", learners: 540, trainers: 58 },
 ]
 
 export default function SuperAdminDashboard() {
@@ -62,27 +72,65 @@ export default function SuperAdminDashboard() {
 
   return (
     <DashboardLayout topbarTitle="Overview">
-      <div className="space-y-6 sm:space-y-8">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-3xl">
-            Super Admin Dashboard
-          </h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 sm:text-base">
-            Monitor platform health, tenants, and revenue at a glance.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="space-y-5">
+        {/* Stat cards — reference-style compact row */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {stats.map((stat) => (
-            <StatsCard key={stat.title} {...stat} />
+            <StatsCard key={stat.title} enterprise {...stat} />
           ))}
         </div>
 
-        <AnalyticsChart />
+        {/* Primary analytics row: revenue (2/3) + subscriptions (1/3) */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <AnalyticsChart enterprise />
+          </div>
+          <div className="min-h-[280px]">
+            <DashboardBarChart
+              title="Subscriptions"
+              data={subscriptionData}
+              bars={[
+                { key: "basic", name: "Basic", color: "#a78bfa" },
+                { key: "pro", name: "Pro", color: "#6366f1" },
+                { key: "enterprise", name: "Enterprise", color: "#22d3ee" },
+              ]}
+              height={200}
+              periodOptions={["This Year", "This Month"]}
+            />
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-          <div className="xl:col-span-2">
+        {/* Secondary charts row */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <DashboardBarChart
+            title="Registrations"
+            data={registrationData}
+            bars={[{ key: "count", name: "Sign-ups", color: "#8b5cf6" }]}
+            height={160}
+            periodOptions={["Today", "This Week", "This Month"]}
+            defaultPeriod="Today"
+            showLegend={false}
+          />
+          <DashboardBarChart
+            title="Active Users"
+            data={activeUsersData}
+            bars={[
+              { key: "learners", name: "Learners", color: "#22d3ee" },
+              { key: "trainers", name: "Trainers", color: "#f472b6" },
+            ]}
+            height={160}
+            periodOptions={["This Month", "This Year"]}
+          />
+          <div className="min-h-[220px] md:col-span-2 xl:col-span-1">
+            <RecentActivityPanel compact />
+          </div>
+        </div>
+
+        {/* Data table + quick actions */}
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
+          <div className="xl:col-span-8">
             <RecentTenantsTable
+              compact
               onViewTenant={(tenant) => {
                 setViewTenant(tenant)
                 setViewOpen(true)
@@ -93,12 +141,10 @@ export default function SuperAdminDashboard() {
               }}
             />
           </div>
-          <div>
-            <RecentActivityPanel />
+          <div className="xl:col-span-4">
+            <QuickActions compact />
           </div>
         </div>
-
-        <QuickActions />
       </div>
 
       <ViewTenantModal

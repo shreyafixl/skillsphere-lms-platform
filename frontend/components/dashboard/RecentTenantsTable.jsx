@@ -56,32 +56,34 @@ const tenants = [
 
 const statusStyles = {
   active:
-    "bg-emerald-50 text-emerald-700 ring-emerald-600/20 dark:bg-emerald-500/15 dark:text-emerald-400 dark:ring-emerald-500/30",
+    "bg-emerald-50 text-emerald-700 ring-emerald-600/15 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-500/25",
   pending:
-    "bg-amber-50 text-amber-700 ring-amber-600/20 dark:bg-amber-500/15 dark:text-amber-400 dark:ring-amber-500/30",
+    "bg-amber-50 text-amber-700 ring-amber-600/15 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-500/25",
   inactive:
-    "bg-slate-100 text-slate-600 ring-slate-500/10 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-600/30",
+    "bg-slate-100 text-slate-600 ring-slate-500/10 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-600/20",
 }
 
 const planStyles = {
   Enterprise:
-    "text-violet-700 bg-violet-50 dark:text-violet-300 dark:bg-violet-500/15",
-  Pro: "text-indigo-700 bg-indigo-50 dark:text-indigo-300 dark:bg-indigo-500/15",
+    "text-violet-700 bg-violet-50 dark:text-violet-300 dark:bg-violet-500/10",
+  Pro: "text-indigo-700 bg-indigo-50 dark:text-indigo-300 dark:bg-indigo-500/10",
   Starter:
     "text-slate-600 bg-slate-100 dark:text-slate-300 dark:bg-slate-800",
 }
 
-function StatusBadge({ status }) {
+function StatusBadge({ status, compact }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold capitalize ring-1 ring-inset",
+        "inline-flex items-center rounded-md font-semibold capitalize ring-1 ring-inset",
+        compact ? "px-2 py-0.5 text-[10px]" : "rounded-full px-2.5 py-1 text-xs",
         statusStyles[status]
       )}
     >
       <span
         className={cn(
-          "mr-1.5 h-1.5 w-1.5 rounded-full",
+          "mr-1 rounded-full",
+          compact ? "h-1 w-1" : "mr-1.5 h-1.5 w-1.5",
           status === "active" && "bg-emerald-500",
           status === "pending" && "bg-amber-500",
           status === "inactive" && "bg-slate-400"
@@ -92,29 +94,34 @@ function StatusBadge({ status }) {
   )
 }
 
-export default function RecentTenantsTable({ onViewTenant, onEditTenant }) {
+export default function RecentTenantsTable({
+  onViewTenant,
+  onEditTenant,
+  compact = false,
+}) {
   return (
-    <DashboardCard className="h-full">
+    <DashboardCard compact={compact} className="h-full">
       <SectionHeader
+        compact={compact}
         title="Recent Tenants"
         subtitle="Latest organizations on the platform"
         action={
           <Link
             href="/dashboard/superadmin/tenants"
-            className="text-sm font-medium text-violet-600 transition-colors hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            className="text-xs font-medium text-violet-600 transition-colors hover:text-violet-700 dark:text-violet-400"
           >
             View all
           </Link>
         }
       />
-      <div className="-mx-2 overflow-x-auto">
-        <table className="w-full min-w-[540px] border-collapse">
+      <div className="-mx-1 overflow-x-auto">
+        <table className="w-full min-w-[520px] border-collapse">
           <thead>
-            <tr className="border-b border-slate-100 dark:border-slate-800">
+            <tr className="border-b border-slate-100 dark:border-slate-800/80">
               {["Company", "Users", "Plan", "Status", "Actions"].map((col) => (
                 <th
                   key={col}
-                  className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500"
+                  className="px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500"
                 >
                   {col}
                 </th>
@@ -125,59 +132,64 @@ export default function RecentTenantsTable({ onViewTenant, onEditTenant }) {
             {tenants.map((tenant) => (
               <tr
                 key={tenant.id}
-                className="group border-b border-slate-50 transition-colors last:border-0 hover:bg-violet-50/40 dark:border-slate-800/50 dark:hover:bg-violet-500/10"
+                className="group border-b border-slate-50 transition-colors last:border-0 hover:bg-violet-50/30 dark:border-slate-800/40 dark:hover:bg-violet-500/5"
               >
-                <td className="px-3 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-sm">
-                      <Building2 size={16} />
+                <td className={cn("px-2.5", compact ? "py-2.5" : "py-3.5")}>
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-sm">
+                      <Building2 size={14} />
                     </div>
-                    <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                    <span className="text-xs font-semibold text-slate-800 dark:text-slate-100">
                       {tenant.company}
                     </span>
                   </div>
                 </td>
-                <td className="px-3 py-4 text-sm text-slate-600 dark:text-slate-400">
+                <td
+                  className={cn(
+                    "px-2.5 text-xs text-slate-600 dark:text-slate-400",
+                    compact ? "py-2.5" : "py-3.5"
+                  )}
+                >
                   {tenant.users.toLocaleString()}
                 </td>
-                <td className="px-3 py-4">
+                <td className={cn("px-2.5", compact ? "py-2.5" : "py-3.5")}>
                   <span
                     className={cn(
-                      "inline-flex rounded-lg px-2.5 py-1 text-xs font-semibold",
+                      "inline-flex rounded-md px-2 py-0.5 text-[10px] font-semibold",
                       planStyles[tenant.plan]
                     )}
                   >
                     {tenant.plan}
                   </span>
                 </td>
-                <td className="px-3 py-4">
-                  <StatusBadge status={tenant.status} />
+                <td className={cn("px-2.5", compact ? "py-2.5" : "py-3.5")}>
+                  <StatusBadge status={tenant.status} compact={compact} />
                 </td>
-                <td className="px-3 py-4">
-                  <div className="flex items-center gap-1 opacity-70 transition-opacity group-hover:opacity-100">
+                <td className={cn("px-2.5", compact ? "py-2.5" : "py-3.5")}>
+                  <div className="flex items-center gap-0.5 opacity-80 transition-opacity group-hover:opacity-100">
                     <button
                       type="button"
                       onClick={() => onViewTenant?.(tenant)}
-                      className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
+                      className="rounded-md p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
                       aria-label="View tenant"
                     >
-                      <Eye size={16} />
+                      <Eye size={14} />
                     </button>
                     <button
                       type="button"
                       onClick={() => onEditTenant?.(tenant)}
-                      className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
+                      className="rounded-md p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
                       aria-label="Edit tenant"
                     >
-                      <Pencil size={16} />
+                      <Pencil size={14} />
                     </button>
                     <button
                       type="button"
                       onClick={() => onEditTenant?.(tenant)}
-                      className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-white hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
+                      className="rounded-md p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-violet-600 dark:hover:bg-slate-800 dark:hover:text-violet-400"
                       aria-label="More actions"
                     >
-                      <MoreHorizontal size={16} />
+                      <MoreHorizontal size={14} />
                     </button>
                   </div>
                 </td>
