@@ -33,6 +33,7 @@ export default function DashboardLayout({
   const currentProfile =
     dashboardProfiles[role] ||
     dashboardProfiles.superadmin
+  console.log("CURRENT ROLE:", role)
 
   return (
     <div

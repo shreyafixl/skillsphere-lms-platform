@@ -347,6 +347,11 @@ export function SidebarProfile({
       initials: "EM",
     },
 
+    manager: {
+      label: "Manager",
+      initials: "MG",
+    },
+
     tenantadmin: {
       label: "Tenant Admin",
       initials: "TA",
