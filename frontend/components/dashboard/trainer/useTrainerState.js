@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useState } from "react"
-import UploadCourseMaterialModal from "@/components/dashboard/tenant-admin/modals/UploadCourseMaterialModal"
+import UploadCourseMaterialModal from "@/components/dashboard/tenantadmin/modals/UploadCourseMaterialModal"
 import {
   StudentViewModal,
   GradeSubmissionModal,

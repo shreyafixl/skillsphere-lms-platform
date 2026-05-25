@@ -5,9 +5,9 @@ import Link from "next/link"
 import { Calendar, Filter, Pencil } from "lucide-react"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
-import SearchBar from "@/components/dashboard/tenant-admin/SearchBar"
+import SearchBar from "@/components/dashboard/tenantadmin/SearchBar"
 import StatusBadge from "./StatusBadge"
-import { DataTable, DataTableCell, DataTableHead, DataTableRow } from "@/components/dashboard/tenant-admin/DataTable"
+import { DataTable, DataTableCell, DataTableHead, DataTableRow } from "@/components/dashboard/tenantadmin/DataTable"
 import { sessions as defaultSessions } from "./trainer-data"
 
 export default function SessionsTable({
