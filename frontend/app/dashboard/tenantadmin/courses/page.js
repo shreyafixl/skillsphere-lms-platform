@@ -16,7 +16,7 @@ import StatsCard from "@/components/dashboard/StatsCard"
 import {
   TenantAdminLayout,
   CourseAssignmentsTable,
-} from "@/components/dashboard/tenant-admin"
+} from "@/components/dashboard/tenantadmin"
 
 export default function CoursesPage() {
   return (

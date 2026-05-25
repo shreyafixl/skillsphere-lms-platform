@@ -14,7 +14,7 @@ import {
   DataTableHead,
   DataTableRow,
 } from "./DataTable"
-import { courseAssignments as defaultAssignments } from "./tenant-admin-data"
+import { courseAssignments as defaultAssignments } from "./tenantadmin-data"
 
 export default function CourseAssignmentsTable({
   data,
@@ -43,7 +43,7 @@ export default function CourseAssignmentsTable({
         action={
           showViewAll ? (
             <Link
-              href="/dashboard/tenant-admin/courses"
+              href="/dashboard/tenantadmin/courses"
               className="text-sm font-semibold text-violet-600 transition-colors hover:text-violet-500 dark:text-violet-400"
             >
               View all

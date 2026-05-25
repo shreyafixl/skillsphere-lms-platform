@@ -24,17 +24,19 @@ export const dashboardProfiles = {
     role: "Super Admin",
     avatar: "AM",
   },
-  tenantAdmin: {
-    name: "Riley Foster",
-    email: "tenant@skillsphere.com",
-    role: "Tenant Admin",
-    avatar: "RF",
-  },
   manager: {
-    name: "Jordan Mitchell",
+    name: "Manager User",
     email: "manager@skillsphere.com",
     role: "Manager",
-    avatar: "JM",
+    avatar: "MG",
+  },
+  
+  "tenantadmin": {
+    name: "Tenant Admin",
+    email: "tenant@skillsphere.com",
+    role: "Tenant Admin",
+    avatar: "TA",
+  
   },
   trainer: {
     name: "Marcus Webb",

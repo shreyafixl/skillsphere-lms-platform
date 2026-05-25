@@ -21,37 +21,37 @@ export const tenantMenuItems = [
   {
     title: "Dashboard",
     icon: LayoutDashboard,
-    href: "/dashboard/tenant-admin",
+    href: "/dashboard/tenantadmin",
   },
   {
     title: "Employees",
     icon: Users,
-    href: "/dashboard/tenant-admin/employees",
+    href: "/dashboard/tenantadmin/employees",
   },
   {
     title: "Trainers",
     icon: GraduationCap,
-    href: "/dashboard/tenant-admin/trainers",
+    href: "/dashboard/tenantadmin/trainers",
   },
   {
     title: "Course Assignments",
     icon: BookOpen,
-    href: "/dashboard/tenant-admin/courses",
+    href: "/dashboard/tenantadmin/courses",
   },
   {
     title: "Reports",
     icon: FileText,
-    href: "/dashboard/tenant-admin/reports",
+    href: "/dashboard/tenantadmin/reports",
   },
   {
     title: "Settings",
     icon: Settings,
-    href: "/dashboard/tenant-admin/settings",
+    href: "/dashboard/tenantadmin/settings",
   },
 ]
 
 function isActiveRoute(pathname, href) {
-  if (href === "/dashboard/tenant-admin") {
+  if (href === "/dashboard/tenantadmin") {
     return pathname === href
   }
   return pathname === href || pathname.startsWith(`${href}/`)
@@ -168,7 +168,7 @@ export default function TenantAdminSidebar({ className, tenantInfo }) {
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-8 shrink-0">
           <Link
-            href="/dashboard/tenant-admin"
+            href="/dashboard/tenantadmin"
             className="flex items-center gap-3"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-lg font-bold shadow-lg shadow-violet-600/30">

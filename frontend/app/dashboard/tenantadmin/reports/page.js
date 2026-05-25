@@ -6,11 +6,11 @@ import { PrimaryActionButton } from "@/components/dashboard/ActionButton"
 import StatsCard from "@/components/dashboard/StatsCard"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
-import TenantAnalyticsChart from "@/components/dashboard/tenant-admin/TenantAnalyticsChart"
+import TenantAnalyticsChart from "@/components/dashboard/tenantadmin/TenantAnalyticsChart"
 import {
   TenantAdminLayout,
   ReportsSection,
-} from "@/components/dashboard/tenant-admin"
+} from "@/components/dashboard/tenantadmin"
 
 export default function ReportsPage() {
   return (

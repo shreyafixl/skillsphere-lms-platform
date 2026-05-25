@@ -28,7 +28,7 @@ export function getSettingsHrefFromPathname(pathname = "") {
 
   const routes = {
     superadmin: "/dashboard/superadmin/settings",
-    "tenant-admin": "/dashboard/tenant-admin/settings",
+    "tenantadmin": "/dashboard/tenantadmin/settings",
     manager: "/dashboard/manager/settings",
     trainer: "/dashboard/trainer/settings",
     employee: "/dashboard/employee/settings",

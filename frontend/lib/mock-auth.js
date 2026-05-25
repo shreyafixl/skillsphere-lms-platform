@@ -11,7 +11,7 @@ export const demoAccounts = [
   {
     role: "Tenant Admin",
     email: "tenant@skillsphere.com",
-    route: "/dashboard/tenant-admin",
+    route: "/dashboard/tenantadmin",
     icon: "Building2",
   },
   {

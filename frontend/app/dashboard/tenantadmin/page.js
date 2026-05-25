@@ -26,13 +26,13 @@ import {
   CourseAssignmentsTable,
   ReportsSection,
   tenantAdminCopy,
-} from "@/components/dashboard/tenant-admin"
+} from "@/components/dashboard/tenantadmin"
 
 const quickLinks = [
   {
     title: "Employees",
     description: "Manage employees and teams",
-    href: "/dashboard/tenant-admin/employees",
+    href: "/dashboard/tenantadmin/employees",
     icon: Users,
     color:
       "text-blue-600 dark:text-blue-400",
@@ -42,7 +42,7 @@ const quickLinks = [
   {
     title: "Trainers",
     description: "Assign and monitor trainers",
-    href: "/dashboard/tenant-admin/trainers",
+    href: "/dashboard/tenantadmin/trainers",
     icon: GraduationCap,
     color:
       "text-violet-600 dark:text-violet-400",
@@ -52,7 +52,7 @@ const quickLinks = [
   {
     title: "Courses",
     description: "Assignments and deadlines",
-    href: "/dashboard/tenant-admin/courses",
+    href: "/dashboard/tenantadmin/courses",
     icon: BookOpen,
     color:
       "text-fuchsia-600 dark:text-fuchsia-400",
@@ -63,7 +63,7 @@ const quickLinks = [
     title: "Reports",
     description:
       "Export analytics & compliance",
-    href: "/dashboard/tenant-admin/reports",
+    href: "/dashboard/tenantadmin/reports",
     icon: FileText,
     color:
       "text-emerald-600 dark:text-emerald-400",

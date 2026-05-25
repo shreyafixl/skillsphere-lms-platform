@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { Filter } from "lucide-react"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
-import SearchBar from "@/components/dashboard/tenant-admin/SearchBar"
+import SearchBar from "@/components/dashboard/tenantadmin/SearchBar"
 import StatusBadge from "./StatusBadge"
 import {
   DataTable,
@@ -12,7 +12,7 @@ import {
   DataTableHead,
   DataTableRow,
   UserAvatar,
-} from "@/components/dashboard/tenant-admin/DataTable"
+} from "@/components/dashboard/tenantadmin/DataTable"
 import { teamMembers as defaultTeamMembers } from "./manager-data"
 
 export default function TeamProgressTable({

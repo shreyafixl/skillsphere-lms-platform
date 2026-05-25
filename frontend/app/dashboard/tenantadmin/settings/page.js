@@ -8,7 +8,7 @@ import SectionHeader from "@/components/dashboard/SectionHeader"
 import {
   TenantAdminLayout,
   tenantAdminCopy,
-} from "@/components/dashboard/tenant-admin"
+} from "@/components/dashboard/tenantadmin"
 
 export default function TenantSettingsPage() {
   return (

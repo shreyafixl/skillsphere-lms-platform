@@ -19,18 +19,15 @@ import {
   Building2,
   GraduationCap,
   Loader2,
-  ClipboardList,
-  Briefcase,
   Trophy,
-Clock,
-Compass,
-Award,
-TrendingUp,
-Video,
-MonitorPlay,
-Megaphone,
-FileText,
-
+  Clock,
+  Compass,
+  Award,
+  TrendingUp,
+  Video,
+  MonitorPlay,
+  Megaphone,
+  FileText,
 } from "lucide-react"
 
 import { toast } from "sonner"
@@ -106,49 +103,49 @@ const menusByRole = {
           icon: LayoutDashboard,
           href: "/dashboard/trainer",
         },
-  
+
         {
           title: "Courses",
           icon: BookOpen,
           href: "/dashboard/trainer/courses",
         },
-  
+
         {
           title: "Students",
           icon: Users,
           href: "/dashboard/trainer/students",
         },
-  
+
         {
           title: "Sessions",
           icon: Video,
           href: "/dashboard/trainer/sessions",
         },
-  
+
         {
           title: "Classes",
           icon: MonitorPlay,
           href: "/dashboard/trainer/classes",
         },
-  
+
         {
           title: "Submissions",
           icon: FileText,
           href: "/dashboard/trainer/submissions",
         },
-  
+
         {
           title: "Announcements",
           icon: Megaphone,
           href: "/dashboard/trainer/announcements",
         },
-  
+
         {
           title: "Analytics",
           icon: BarChart3,
           href: "/dashboard/trainer/analytics",
         },
-  
+
         {
           title: "Settings",
           icon: Settings,
@@ -167,47 +164,96 @@ const menusByRole = {
           icon: LayoutDashboard,
           href: "/dashboard/employee",
         },
-  
+
         {
           title: "My Courses",
           icon: BookOpen,
           href: "/dashboard/employee/courses",
         },
-  
+
         {
           title: "Progress",
           icon: TrendingUp,
           href: "/dashboard/employee/progress",
         },
-  
+
         {
           title: "Certificates",
           icon: Award,
           href: "/dashboard/employee/certificates",
         },
-  
+
         {
           title: "Achievements",
           icon: Trophy,
           href: "/dashboard/employee/achievements",
         },
-  
+
         {
           title: "Deadlines",
           icon: Clock,
           href: "/dashboard/employee/deadlines",
         },
-  
+
         {
           title: "Discover",
           icon: Compass,
           href: "/dashboard/employee/discover",
         },
-  
+
         {
           title: "Settings",
           icon: Settings,
           href: "/dashboard/employee/settings",
+        },
+      ],
+    },
+  ],
+
+  manager: [
+    {
+      label: "Manager",
+      items: [
+        {
+          title: "Dashboard",
+          icon: LayoutDashboard,
+          href: "/dashboard/manager",
+        },
+
+        {
+          title: "Team",
+          icon: Users,
+          href: "/dashboard/manager/team",
+        },
+
+        {
+          title: "Progress",
+          icon: TrendingUp,
+          href: "/dashboard/manager/progress",
+        },
+
+        {
+          title: "Analytics",
+          icon: BarChart3,
+          href: "/dashboard/manager/analytics",
+        },
+
+        {
+          title: "Deadlines",
+          icon: Clock,
+          href: "/dashboard/manager/deadlines",
+        },
+
+        {
+          title: "Reports",
+          icon: FileText,
+          href: "/dashboard/manager/reports",
+        },
+
+        {
+          title: "Settings",
+          icon: Settings,
+          href: "/dashboard/manager/settings",
         },
       ],
     },
@@ -227,6 +273,12 @@ const menusByRole = {
           title: "Employees",
           icon: Users,
           href: "/dashboard/tenantadmin/employees",
+        },
+
+        {
+          title: "Trainers",
+          icon: GraduationCap,
+          href: "/dashboard/tenantadmin/trainers",
         },
 
         {
@@ -252,6 +304,10 @@ const menusByRole = {
 }
 
 function isActiveRoute(pathname, href) {
+  if (href === "/dashboard/tenantadmin") {
+    return pathname === href
+  }
+
   return (
     pathname === href ||
     pathname.startsWith(`${href}/`)
@@ -292,9 +348,9 @@ export function SidebarNav({
                     href={item.href}
                     onClick={() => onNavigate?.()}
                     className={cn(
-                      "flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-colors duration-200",
+                      "flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-200",
                       isActive
-                        ? "bg-violet-50 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300"
+                        ? "bg-violet-50 text-violet-700 shadow-sm dark:bg-violet-500/15 dark:text-violet-300"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-200"
                     )}
                   >
@@ -436,8 +492,8 @@ export default function Sidebar({
   return (
     <aside
       className={cn(
-        "sticky top-0 z-30 flex h-screen w-[248px] shrink-0 flex-col overflow-hidden",
-        "border-r border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900",
+        "sticky top-0 z-30 flex h-screen overflow-hidden w-[248px] shrink-0 flex-col",
+        "border-r border-white/10 bg-white/95 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/95",
         className
       )}
     >
@@ -458,7 +514,17 @@ export default function Sidebar({
                 </h1>
 
                 <span className="rounded-md bg-violet-50 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">
-                  {role}
+                  {role === "superadmin"
+                    ? "SUPERADMIN"
+                    : role === "tenantadmin"
+                    ? "TENANT ADMIN"
+                    : role === "trainer"
+                    ? "TRAINER"
+                    : role === "employee"
+                    ? "EMPLOYEE"
+                    : role === "manager"
+                    ? "MANAGER"
+                    : role}
                 </span>
               </div>
 

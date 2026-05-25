@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
-import { tenantActivities } from "./tenant-admin-data"
+import { tenantActivities } from "./tenantadmin-data"
 
 const typeConfig = {
   completion: {

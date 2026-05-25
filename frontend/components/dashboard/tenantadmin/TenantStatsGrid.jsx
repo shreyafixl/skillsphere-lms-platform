@@ -7,7 +7,7 @@ import {
   Users,
 } from "lucide-react"
 import StatsCard from "@/components/dashboard/StatsCard"
-import { overviewStats } from "./tenant-admin-data"
+import { overviewStats } from "./tenantadmin-data"
 
 const icons = {
   users: <Users size={24} />,

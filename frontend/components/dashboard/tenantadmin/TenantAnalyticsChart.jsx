@@ -11,7 +11,7 @@ import {
 } from "recharts"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
-import { learningChartData } from "./tenant-admin-data"
+import { learningChartData } from "./tenantadmin-data"
 
 function ChartTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null

@@ -20,4 +20,4 @@ export {
   departments,
   courseCatalog,
   courseCategories,
-} from "./tenant-admin-data"
+} from "./tenantadmin-data"

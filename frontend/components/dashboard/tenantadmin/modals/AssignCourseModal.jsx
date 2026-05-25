@@ -9,7 +9,7 @@ import FormLayout, {
   FormTextarea,
 } from "@/components/dashboard/modals/FormLayout"
 import { useFormSubmit } from "@/components/dashboard/modals/useFormSubmit"
-import { departments, courseCatalog, trainers as defaultTrainers } from "../tenant-admin-data"
+import { departments, courseCatalog, trainers as defaultTrainers } from "../tenantadmin-data"
 
 const emptyForm = {
   course: "",

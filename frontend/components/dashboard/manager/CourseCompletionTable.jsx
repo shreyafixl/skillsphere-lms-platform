@@ -9,7 +9,7 @@ import {
   DataTableCell,
   DataTableHead,
   DataTableRow,
-} from "@/components/dashboard/tenant-admin/DataTable"
+} from "@/components/dashboard/tenantadmin/DataTable"
 import { courseCompletionStats as defaultStats } from "./manager-data"
 
 export default function CourseCompletionTable({ data }) {

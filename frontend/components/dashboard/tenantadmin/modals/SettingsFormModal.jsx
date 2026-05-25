@@ -8,7 +8,7 @@ import FormLayout, {
   FormSelect,
 } from "@/components/dashboard/modals/FormLayout"
 import { useFormSubmit } from "@/components/dashboard/modals/useFormSubmit"
-import { tenantInfo } from "../tenant-admin-data"
+import { tenantInfo } from "../tenantadmin-data"
 
 const emptyForm = {
   organization: "",

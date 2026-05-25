@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-
 import {
   BarChart3,
   Clock,
@@ -12,7 +11,6 @@ import {
 
 import PageHeader from "@/components/dashboard/PageHeader"
 import DashboardCard from "@/components/dashboard/DashboardCard"
-
 import { PrimaryActionButton } from "@/components/dashboard/ActionButton"
 
 import {
@@ -35,8 +33,7 @@ const quickLinks = [
     description: "Assigned learners & roster",
     href: "/dashboard/manager/team",
     icon: Users,
-    color:
-      "text-blue-600 dark:text-blue-400",
+    color: "text-blue-600 dark:text-blue-400",
     bg: "bg-blue-50 dark:bg-blue-500/15",
   },
 
@@ -45,8 +42,7 @@ const quickLinks = [
     description: "Track employee learning",
     href: "/dashboard/manager/progress",
     icon: TrendingUp,
-    color:
-      "text-violet-600 dark:text-violet-400",
+    color: "text-violet-600 dark:text-violet-400",
     bg: "bg-violet-50 dark:bg-violet-500/15",
   },
 
@@ -55,8 +51,7 @@ const quickLinks = [
     description: "Department insights",
     href: "/dashboard/manager/analytics",
     icon: BarChart3,
-    color:
-      "text-fuchsia-600 dark:text-fuchsia-400",
+    color: "text-fuchsia-600 dark:text-fuchsia-400",
     bg: "bg-fuchsia-50 dark:bg-fuchsia-500/15",
   },
 
@@ -65,8 +60,7 @@ const quickLinks = [
     description: "Upcoming due dates",
     href: "/dashboard/manager/deadlines",
     icon: Clock,
-    color:
-      "text-amber-600 dark:text-amber-400",
+    color: "text-amber-600 dark:text-amber-400",
     bg: "bg-amber-50 dark:bg-amber-500/15",
   },
 
@@ -75,8 +69,7 @@ const quickLinks = [
     description: "Export team insights",
     href: "/dashboard/manager/reports",
     icon: FileText,
-    color:
-      "text-emerald-600 dark:text-emerald-400",
+    color: "text-emerald-600 dark:text-emerald-400",
     bg: "bg-emerald-50 dark:bg-emerald-500/15",
   },
 ]
@@ -92,19 +85,13 @@ export default function ManagerDashboard() {
         openNudgeMember,
         openFilters,
       }) => (
-        <ManagerPageSection className="space-y-5">
+        <ManagerPageSection className="space-y-6 sm:space-y-8">
           <PageHeader
-            title={
-              managerCopy.dashboardHeading
-            }
-            description={
-              managerCopy.dashboardDescription
-            }
+            title={managerCopy.dashboardHeading}
+            description={managerCopy.dashboardDescription}
             action={
-              <PrimaryActionButton
-                onClick={openCreateReport}
-              >
-                <FileText size={16} />
+              <PrimaryActionButton onClick={openCreateReport}>
+                <FileText size={18} />
                 Create Report
               </PrimaryActionButton>
             }
@@ -112,28 +99,21 @@ export default function ManagerDashboard() {
 
           <ManagerStatsGrid />
 
-          <ManagerStaggerGrid className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          <ManagerStaggerGrid className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 sm:gap-4">
             {quickLinks.map((link) => {
               const Icon = link.icon
 
               return (
-                <ManagerStaggerItem
-                  key={link.href}
-                >
+                <ManagerStaggerItem key={link.href}>
                   <Link href={link.href}>
-                    <DashboardCard className="h-full rounded-2xl border border-slate-200/80 p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-sm hover:shadow-violet-500/10 dark:border-slate-800/80 dark:hover:border-violet-500/30">
+                    <DashboardCard className="h-full p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/10 dark:hover:border-violet-500/30 sm:p-5">
                       <div
-                        className={`mb-3 flex h-9 w-9 items-center justify-center rounded-xl ${link.bg}`}
+                        className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${link.bg}`}
                       >
-                        <Icon
-                          size={18}
-                          className={
-                            link.color
-                          }
-                        />
+                        <Icon size={20} className={link.color} />
                       </div>
 
-                      <p className="text-[13px] font-semibold text-slate-900 dark:text-slate-50">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
                         {link.title}
                       </p>
 
@@ -149,15 +129,11 @@ export default function ManagerDashboard() {
 
           <ManagerPerformanceChart />
 
-          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <TeamMembersTable
               data={teamMembers}
-              onViewMember={
-                openViewMember
-              }
-              onNudgeMember={
-                openNudgeMember
-              }
+              onViewMember={openViewMember}
+              onNudgeMember={openNudgeMember}
               onOpenFilters={openFilters}
               compact
               showViewAll
@@ -169,7 +145,7 @@ export default function ManagerDashboard() {
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
             <div className="xl:col-span-2">
               <ManagerReportsSection
                 data={reports}
@@ -179,9 +155,7 @@ export default function ManagerDashboard() {
             </div>
 
             <div>
-              <ManagerActivityPanel
-                limit={5}
-              />
+              <ManagerActivityPanel limit={5} />
             </div>
           </div>
         </ManagerPageSection>

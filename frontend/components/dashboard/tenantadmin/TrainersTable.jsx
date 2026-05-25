@@ -14,7 +14,7 @@ import {
   DataTableRow,
   UserAvatar,
 } from "./DataTable"
-import { trainers as defaultTrainers } from "./tenant-admin-data"
+import { trainers as defaultTrainers } from "./tenantadmin-data"
 
 export default function TrainersTable({
   data,
@@ -45,7 +45,7 @@ export default function TrainersTable({
         action={
           showViewAll ? (
             <Link
-              href="/dashboard/tenant-admin/trainers"
+              href="/dashboard/tenantadmin/trainers"
               className="text-sm font-semibold text-violet-600 transition-colors hover:text-violet-500 dark:text-violet-400"
             >
               View all

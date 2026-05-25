@@ -9,7 +9,7 @@ import FormLayout, {
   FormTextarea,
 } from "@/components/dashboard/modals/FormLayout"
 import { useFormSubmit } from "@/components/dashboard/modals/useFormSubmit"
-import { departments } from "../tenant-admin-data"
+import { departments } from "../tenantadmin-data"
 
 const emptyAdd = {
   name: "",

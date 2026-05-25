@@ -12,7 +12,7 @@ import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import DashboardCard from "@/components/dashboard/DashboardCard"
 import SectionHeader from "@/components/dashboard/SectionHeader"
-import { reports as defaultReports } from "./tenant-admin-data"
+import { reports as defaultReports } from "./tenantadmin-data"
 
 const typeIcons = {
   Analytics: BarChart3,
@@ -48,7 +48,7 @@ export default function ReportsSection({
         action={
           showViewAll ? (
             <Link
-              href="/dashboard/tenant-admin/reports"
+              href="/dashboard/tenantadmin/reports"
               className="text-sm font-semibold text-violet-600 transition-colors hover:text-violet-500 dark:text-violet-400"
             >
               View all

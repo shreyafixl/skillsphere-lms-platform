@@ -16,7 +16,7 @@ import {
   courseAssignments as initialAssignments,
   reports as initialReports,
   tenantInfo as initialTenantInfo,
-} from "./tenant-admin-data"
+} from "./tenantadmin-data"
 
 function formatDueDate(isoDate) {
   if (!isoDate) return "—"

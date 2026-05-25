@@ -8,7 +8,7 @@ import StatsCard from "@/components/dashboard/StatsCard"
 import {
   TenantAdminLayout,
   EmployeesTable,
-} from "@/components/dashboard/tenant-admin"
+} from "@/components/dashboard/tenantadmin"
 
 export default function EmployeesPage() {
   return (

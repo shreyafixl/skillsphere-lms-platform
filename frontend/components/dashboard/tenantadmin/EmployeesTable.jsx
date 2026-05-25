@@ -14,7 +14,7 @@ import {
   DataTableRow,
   UserAvatar,
 } from "./DataTable"
-import { employees as defaultEmployees } from "./tenant-admin-data"
+import { employees as defaultEmployees } from "./tenantadmin-data"
 
 export default function EmployeesTable({
   data,
@@ -45,7 +45,7 @@ export default function EmployeesTable({
         action={
           showViewAll ? (
             <Link
-              href="/dashboard/tenant-admin/employees"
+              href="/dashboard/tenantadmin/employees"
               className="text-sm font-semibold text-violet-600 transition-colors hover:text-violet-500 dark:text-violet-400"
             >
               View all
