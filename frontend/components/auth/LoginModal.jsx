@@ -9,14 +9,26 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { DEMO_PASSWORD, mockAuthenticate } from "@/lib/mock-auth"
+import { useAuth } from "@/hooks/useAuth"
+
 import DemoAccounts from "@/components/auth/DemoAccounts"
 import AuthModalShell from "@/components/auth/AuthModalShell"
 
 const contentVariants = {
   initial: { opacity: 0, x: 16 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } },
-  exit: { opacity: 0, x: -16, transition: { duration: 0.18 } },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.22,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: -16,
+    transition: { duration: 0.18 },
+  },
 }
 
 export default function LoginModal({
@@ -27,34 +39,62 @@ export default function LoginModal({
   onSwitchToSignup,
 }) {
   const router = useRouter()
+
   const isEmbedded = variant === "embedded"
   const isInline = variant === "inline"
   const isModal = variant === "modal"
-  const isOpen = isInline ? true : isEmbedded ? true : open
 
-  const handleClose = onClose ?? (setOpen ? () => setOpen(false) : undefined)
+  const isOpen = isInline
+    ? true
+    : isEmbedded
+    ? true
+    : open
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [errors, setErrors] = useState({})
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [selectedDemoEmail, setSelectedDemoEmail] = useState("")
+  const handleClose =
+    onClose ??
+    (setOpen ? () => setOpen(false) : undefined)
+
+  const [showPassword, setShowPassword] =
+    useState(false)
+
+  const [loading, setLoading] =
+    useState(false)
+
+  const [errors, setErrors] =
+    useState({})
+
+  const [email, setEmail] =
+    useState("")
+
+  const [password, setPassword] =
+    useState("")
+
+  const [selectedDemoEmail, setSelectedDemoEmail] =
+    useState("")
+
+  const { login } = useAuth()
 
   if (!isOpen) return null
 
+  // Demo account selection
   const handleDemoSelect = (account) => {
     setEmail(account.email)
-    setPassword(DEMO_PASSWORD)
+    setPassword("123456")
     setSelectedDemoEmail(account.email)
     setErrors({})
   }
 
-  const handleSignIn = () => {
+  // Real backend login
+  const handleSignIn = async () => {
     const newErrors = {}
 
-    if (!email.trim()) newErrors.email = "Email is required"
-    if (!password) newErrors.password = "Password is required"
+    if (!email.trim()) {
+      newErrors.email = "Email is required"
+    }
+
+    if (!password) {
+      newErrors.password = "Password is required"
+    }
 
     setErrors(newErrors)
 
@@ -63,21 +103,25 @@ export default function LoginModal({
       return
     }
 
-    const result = mockAuthenticate(email, password)
+    try {
+      setLoading(true)
 
-    if (!result.success) {
-      toast.error(result.error)
-      return
-    }
+      await login(email, password)
 
-    setLoading(true)
-
-    setTimeout(() => {
-      setLoading(false)
-      toast.success(`Welcome, ${result.account.role}!`)
+      toast.success("Login successful!")
       handleClose?.()
-      router.push(result.route)
-    }, 800)
+      router.push("/")
+    } catch (error) {
+      console.log(error)
+
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Login failed"
+      )
+    } finally {
+      setLoading(false)
+    }
   }
 
   const form = (
@@ -125,38 +169,66 @@ export default function LoginModal({
               }}
               className="h-12 rounded-xl dark:border-slate-700 dark:bg-slate-800/60"
             />
+
             {errors.email && (
-              <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.email}
+              </p>
             )}
           </div>
 
           <div className="relative">
             <Input
-              type={showPassword ? "text" : "password"}
+              type={
+                showPassword
+                  ? "text"
+                  : "password"
+              }
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               className="h-12 rounded-xl pr-12 dark:border-slate-700 dark:bg-slate-800/60"
             />
+
             {errors.password && (
-              <p className="mt-1 text-sm text-red-500">{errors.password}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.password}
+              </p>
             )}
 
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-slate-400"
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={
+                showPassword
+                  ? "Hide password"
+                  : "Show password"
+              }
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? (
+                <EyeOff size={20} />
+              ) : (
+                <Eye size={20} />
+              )}
             </button>
           </div>
         </div>
 
         <div className="mt-4 flex items-center justify-between text-sm">
           <label className="flex cursor-pointer items-center gap-2">
-            <input type="checkbox" className="rounded border-slate-300" />
-            <span className="text-gray-600 dark:text-slate-400">Remember Me</span>
+            <input
+              type="checkbox"
+              className="rounded border-slate-300"
+            />
+
+            <span className="text-gray-600 dark:text-slate-400">
+              Remember Me
+            </span>
           </label>
 
           <button
@@ -172,7 +244,9 @@ export default function LoginModal({
           onClick={handleSignIn}
           className="mt-6 h-12 w-full rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02]"
         >
-          {loading ? "Signing In..." : "Sign In"}
+          {loading
+            ? "Signing In..."
+            : "Sign In"}
         </Button>
 
         <DemoAccounts
@@ -191,7 +265,9 @@ export default function LoginModal({
           Don&apos;t have an account?{" "}
           <button
             type="button"
-            onClick={() => onSwitchToSignup?.()}
+            onClick={() =>
+              onSwitchToSignup?.()
+            }
             className="cursor-pointer font-medium text-violet-600 transition-colors hover:underline dark:text-violet-400"
           >
             Sign Up
@@ -206,7 +282,10 @@ export default function LoginModal({
   if (isEmbedded) return form
 
   return (
-    <AuthModalShell open={open} onClose={handleClose}>
+    <AuthModalShell
+      open={open}
+      onClose={handleClose}
+    >
       {form}
     </AuthModalShell>
   )

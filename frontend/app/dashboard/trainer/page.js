@@ -13,6 +13,7 @@ import {
 
 import PageHeader from "@/components/dashboard/PageHeader"
 import DashboardCard from "@/components/dashboard/DashboardCard"
+import ProtectedRoute from "@/components/auth/ProtectedRoute"
 
 import { PrimaryActionButton } from "@/components/dashboard/ActionButton"
 
@@ -87,8 +88,11 @@ const quickLinks = [
 
 export default function TrainerDashboard() {
   return (
-    <TrainerLayout topbarTitle="Overview">
-      {({
+    <ProtectedRoute
+      allowedRoles={["trainer", "instructor"]}
+    >
+      <TrainerLayout topbarTitle="Overview">
+        ({
         assignedCourses,
         students,
         sessions,
@@ -224,5 +228,6 @@ export default function TrainerDashboard() {
         </TrainerPageSection>
       )}
     </TrainerLayout>
+    </ProtectedRoute>
   )
 }

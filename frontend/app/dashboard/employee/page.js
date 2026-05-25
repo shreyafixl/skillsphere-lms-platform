@@ -12,6 +12,7 @@ import {
 
 import PageHeader from "@/components/dashboard/PageHeader"
 import DashboardCard from "@/components/dashboard/DashboardCard"
+import ProtectedRoute from "@/components/auth/ProtectedRoute"
 
 import { PrimaryActionButton } from "@/components/dashboard/ActionButton"
 
@@ -76,14 +77,17 @@ const quickLinks = [
 
 export default function EmployeeDashboard() {
   return (
-    <EmployeeLayout topbarTitle="My Learning">
-      {({
-        enrolledCourses,
-        recommendedCourses,
-        openContinueCourse,
-        openViewCertificate,
-        openEnrollCourse,
-      }) => {
+    <ProtectedRoute
+      allowedRoles={["student", "learner", "employee"]}
+    >
+      <EmployeeLayout topbarTitle="My Learning">
+        ({
+          enrolledCourses,
+          recommendedCourses,
+          openContinueCourse,
+          openViewCertificate,
+          openEnrollCourse,
+        }) => {
         const inProgress =
           enrolledCourses.find(
             (c) =>
@@ -196,5 +200,6 @@ export default function EmployeeDashboard() {
         )
       }}
     </EmployeeLayout>
+    </ProtectedRoute>
   )
 }

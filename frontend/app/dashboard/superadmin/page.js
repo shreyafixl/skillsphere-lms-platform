@@ -9,6 +9,7 @@ import RecentTenantsTable from "@/components/dashboard/RecentTenantsTable"
 import RecentActivityPanel from "@/components/dashboard/RecentActivityPanel"
 import QuickActions from "@/components/dashboard/QuickActions"
 import { TenantFormModal, ViewTenantModal } from "@/components/dashboard/modals"
+import ProtectedRoute from "@/components/auth/ProtectedRoute"
 
 const stats = [
   {
@@ -71,9 +72,12 @@ export default function SuperAdminDashboard() {
   const [editOpen, setEditOpen] = useState(false)
 
   return (
-    <DashboardLayout topbarTitle="Overview">
-      <div className="space-y-5">
-        {/* Stat cards — reference-style compact row */}
+    <ProtectedRoute
+      allowedRoles={["admin", "superadmin", "super admin"]}
+    >
+      <DashboardLayout topbarTitle="Overview">
+        <div className="space-y-5">
+          {/* Stat cards — reference-style compact row */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {stats.map((stat) => (
             <StatsCard key={stat.title} enterprise {...stat} />
@@ -163,5 +167,6 @@ export default function SuperAdminDashboard() {
         initialData={editTenant}
       />
     </DashboardLayout>
+    </ProtectedRoute>
   )
 }
